@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://atindahhillary.github.io/LUPUS-FOUNDATION-AFRICA.ORG/sitemap.xml

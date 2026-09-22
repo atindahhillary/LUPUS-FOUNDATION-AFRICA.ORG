@@ -1,0 +1,6 @@
+# Working files: raw downloads, contact sheets and the video master.
+# The shipped web encode lives in assets/video/.
+.work/
+node_modules/
+.DS_Store
+Thumbs.db
