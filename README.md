@@ -86,6 +86,35 @@ If a request to that endpoint fails, the form falls back to the email client aut
 
 ---
 
+## Ask LFA (the chat assistant)
+
+`assets/js/chatbot.js` powers the "Ask about lupus" assistant in the bottom-left corner of every page.
+
+**It is not a language model, and that is deliberate.** Answers come from a curated knowledge base of around 40 topics written and reviewed by LFA. For a patient organisation this is the safer design: answers about a medical condition are vetted rather than improvised, there is no hallucination risk, it costs nothing to run, it works offline, and nothing a visitor types about their health ever leaves their device.
+
+It handles free-text questions through keyword scoring plus a phrase table, so "can lupus be passed to my children" reaches heredity rather than the children topic. It also:
+
+- Detects **urgent symptoms** (chest pain, breathing difficulty, seizures, no urine output) and tells the person to seek care immediately rather than answering
+- Detects **crisis language** and responds with support and the LFA number
+- Says plainly when it does not know, and hands over to a real person
+- Carries a "general information only" disclaimer in the header and on every session
+
+### Adding a live model backend
+
+If you later want it to answer anything, stand up a small serverless function (Cloudflare Worker, Vercel function) that holds your API key, then set:
+
+```js
+var CHAT_ENDPOINT = 'https://your-worker.example.workers.dev/ask';
+```
+
+It should accept `{message, history}` and return `{reply}`. The knowledge base stays as the instant-answer layer and only unmatched questions are forwarded.
+
+**Never put an API key in `chatbot.js`.** It is a public file on a public site; a key placed there will be scraped and abused within hours.
+
+### Editing the answers
+
+Each entry in the `KB` array is `{ id, k, a, f, cta }` — `k` is the keyword string, `a` is the answer HTML, `f` lists follow-up topic ids shown as chips, and `cta` is an optional link. Add a topic by adding an object and referencing its id from other entries' `f` arrays.
+
 ## Notes for maintainers
 
 - **Impact figures** appear on the home, about, our-work and donate pages. Search for `data-count` to update them. Figures still being verified are described as such rather than estimated.

@@ -204,7 +204,7 @@
     <div class="split split--wide-right" data-reveal>
       <div>
         <div class="media media--wide"><img src="assets/img/g-26.jpg" alt="The LFA community raising their hands behind the World Lupus Day 2026 banner in Nairobi" loading="lazy" width="1000" height="667"></div>
-        <p class="media-caption">World Lupus Day 2026, Nairobi. Photo: Raymond Kiunga.</p>
+        <p class="media-caption"><strong>For many people here, it was the first time they stood in a crowd where lupus did not need explaining.</strong><br>World Lupus Day 2026, Nairobi. Photo: Raymond Kiunga.</p>
       </div>
       <div>
         <span class="badge badge--gold" style="margin-bottom:1rem">Flagship campaign &middot; 9 May 2026 &middot; Nairobi</span>
@@ -271,7 +271,7 @@
           <p style="font-size:.94rem;margin-bottom:0">New members joined from across the country, several chapters gained active participants, and media coverage carried the message far beyond the people who walked. The conversations started that day continue in our support groups and in our policy engagement.</p>
         </div>
         <div class="media media--wide" style="margin-top:1.4rem"><img src="assets/img/f-pledge-wall.jpg" alt="The World Lupus Day 2026 pledge wall covered in handwritten messages of hope from the community" loading="lazy" width="1400" height="933"></div>
-        <p class="media-caption">The pledge wall. Photo: Raymond Kiunga.</p>
+        <p class="media-caption"><strong>&ldquo;We win, we are strong.&rdquo;</strong> Written by someone who had every reason not to believe it, and wrote it anyway.<br>The pledge wall. Photo: Raymond Kiunga.</p>
       </div>
     </div>
   </div>
@@ -283,7 +283,7 @@
     <div class="section-head" data-reveal>
       <p class="eyebrow">Gallery</p>
       <h2>World Lupus Day 2026 in pictures</h2>
-      <p class="lead">Select any photograph to view it larger. Use the arrow keys to move through the gallery. All photography by Raymond Kiunga.</p>
+      <p class="lead"><strong>Look closely and you will see it: people who spent years being told they looked fine, refusing to be invisible for one day.</strong> Select any photograph to view it larger, and use the arrow keys to move through the gallery. All photography by Raymond Kiunga.</p>
     </div>
     <div class="gallery" data-reveal>
       <figure>
@@ -701,6 +701,42 @@
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
   Donate
 </a>
+
+<!-- Ask LFA: lupus information assistant -->
+<button class="chat-launch" id="chat-launch" type="button" aria-expanded="false" aria-controls="chat">
+  <span style="position:relative;display:grid;place-items:center">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span class="chat-ping" aria-hidden="true"></span>
+  </span>
+  Ask about lupus
+</button>
+
+<aside class="chat" id="chat" role="dialog" aria-modal="false" aria-label="Ask LFA, lupus information assistant">
+  <div class="chat-head">
+    <img src="assets/img/logo.png" alt="" width="38" height="41">
+    <span class="chat-head-t">
+      <b>Ask LFA</b>
+      <span><span class="dot" aria-hidden="true"></span>Lupus information assistant</span>
+    </span>
+    <button class="chat-x" id="chat-close" type="button" aria-label="Close the assistant">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-atomic="false"></div>
+  <div class="chat-chips" id="chat-chips"></div>
+
+  <form class="chat-form" id="chat-form" autocomplete="off">
+    <label for="chat-input" class="is-hidden">Ask a question about lupus</label>
+    <input type="text" id="chat-input" placeholder="Ask me about lupus&hellip;" maxlength="300">
+    <button class="chat-send" type="submit" aria-label="Send message">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
+    </button>
+  </form>
+  <p class="chat-foot">General information only, not medical advice. In an emergency, contact a health professional. Nothing you type here leaves your device.</p>
+</aside>
+
 <script src="assets/js/site.js" defer></script>
+<script src="assets/js/chatbot.js" defer></script>
 </body>
 </html>

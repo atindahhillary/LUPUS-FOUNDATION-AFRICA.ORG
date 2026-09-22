@@ -253,7 +253,7 @@
       <div class="stat"><b data-count="50" data-suffix="+">0</b><span>Awareness activities delivered</span></div>
       <div class="stat"><b data-count="5000" data-suffix="+">0</b><span>People reached through campaigns</span></div>
     </div>
-    <p class="media-caption" style="text-align:center;margin-top:1rem">Figures reviewed and updated annually.</p>
+    <p class="media-caption" style="text-align:center;margin-top:1rem">Every number here is a person who no longer faces lupus alone. Figures reviewed and updated annually.</p>
   </div>
 </section>
 
@@ -445,7 +445,7 @@
       </div>
       <div data-reveal data-reveal-delay="120">
         <div class="media media--wide"><img src="assets/img/community-group.jpg" alt="The full LFA community gathered for a group photograph at World Lupus Day 2026 in Nairobi" loading="lazy" width="1600" height="1067"></div>
-        <p class="media-caption">World Lupus Day 2026, Nairobi. Photo: Raymond Kiunga.</p>
+        <p class="media-caption"><strong>One day a year, lupus is impossible to ignore.</strong> The rest of the year, that is our job.<br>World Lupus Day 2026, Nairobi. Photo: Raymond Kiunga.</p>
         <div class="quote" style="margin-top:1.6rem">
           <p>African patients must be at the centre of defining the problems, generating the evidence, shaping the solutions, and influencing the policies that affect their lives.</p>
           <footer>The LFA conviction</footer>
@@ -584,6 +584,42 @@
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
   Donate
 </a>
+
+<!-- Ask LFA: lupus information assistant -->
+<button class="chat-launch" id="chat-launch" type="button" aria-expanded="false" aria-controls="chat">
+  <span style="position:relative;display:grid;place-items:center">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span class="chat-ping" aria-hidden="true"></span>
+  </span>
+  Ask about lupus
+</button>
+
+<aside class="chat" id="chat" role="dialog" aria-modal="false" aria-label="Ask LFA, lupus information assistant">
+  <div class="chat-head">
+    <img src="assets/img/logo.png" alt="" width="38" height="41">
+    <span class="chat-head-t">
+      <b>Ask LFA</b>
+      <span><span class="dot" aria-hidden="true"></span>Lupus information assistant</span>
+    </span>
+    <button class="chat-x" id="chat-close" type="button" aria-label="Close the assistant">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-atomic="false"></div>
+  <div class="chat-chips" id="chat-chips"></div>
+
+  <form class="chat-form" id="chat-form" autocomplete="off">
+    <label for="chat-input" class="is-hidden">Ask a question about lupus</label>
+    <input type="text" id="chat-input" placeholder="Ask me about lupus&hellip;" maxlength="300">
+    <button class="chat-send" type="submit" aria-label="Send message">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
+    </button>
+  </form>
+  <p class="chat-foot">General information only, not medical advice. In an emergency, contact a health professional. Nothing you type here leaves your device.</p>
+</aside>
+
 <script src="assets/js/site.js" defer></script>
+<script src="assets/js/chatbot.js" defer></script>
 </body>
 </html>

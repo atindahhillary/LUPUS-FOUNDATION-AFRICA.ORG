@@ -585,7 +585,7 @@ p{margin:0 0 1.15em}
 .chat-launch.is-hidden{display:none}
 @media(max-width:620px){.chat-launch{left:.9rem;bottom:.9rem;padding:.75rem 1.05rem .75rem .8rem;font-size:.88rem}}
 
-.chat{position:fixed;left:1.2rem;bottom:1.2rem;z-index:95;width:min(400px,calc(100vw - 2.4rem));height:min(620px,calc(100vh - 2.4rem));
+.chat{position:fixed;left:1.2rem;bottom:1.2rem;z-index:150;width:min(400px,calc(100vw - 2.4rem));height:min(620px,calc(100vh - 2.4rem));
   background:var(--paper);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);
   display:flex;flex-direction:column;overflow:hidden;opacity:0;visibility:hidden;transform:translateY(16px) scale(.97);
   transition:opacity .28s var(--ease),transform .28s var(--ease),visibility .28s}
