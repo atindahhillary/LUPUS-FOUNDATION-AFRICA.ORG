@@ -250,7 +250,7 @@
       var src = triggers[idx].getAttribute('data-full') || $('img', triggers[idx]).src;
       var alt = $('img', triggers[idx]).alt || '';
       img.src = src; img.alt = alt;
-      if (meta) meta.textContent = (idx + 1) + ' of ' + triggers.length + (alt ? ' — ' + alt : '');
+      if (meta) meta.textContent = (idx + 1) + ' of ' + triggers.length + (alt ? ': ' + alt : '');
       lb.classList.add('is-open');
       document.body.style.overflow = 'hidden';
       $('.lb-close', lb).focus();

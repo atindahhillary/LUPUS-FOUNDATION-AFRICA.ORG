@@ -8,7 +8,7 @@ The website for the [Lupus Foundation of Africa](https://atindahhillary.github.i
 
 ## What this is
 
-A fast, accessible, static website. No framework, no runtime dependencies, no build server required to view it. Pages are composed from a shared layout by a small Node script and committed as plain HTML, so GitHub Pages serves them directly.
+A fast, accessible, static website set in Inter. No framework, no runtime dependencies, no build server required to view it. Pages are composed from a shared layout by a small Node script and committed as plain HTML, so GitHub Pages serves them directly.
 
 ### Pages
 
@@ -18,13 +18,13 @@ A fast, accessible, static website. No framework, no runtime dependencies, no bu
 | `about.html` | Who we are, mission, vision, values, three pillars, team, governance |
 | `partners.html` | Clinical, mental health, diagnostic, treatment, nutrition and media partners |
 | `understanding-lupus.html` | What lupus is, causes, symptoms, diagnosis, treatment, FAQs |
-| `newly-diagnosed.html` | "I have lupus. What now?" — five first steps |
+| `newly-diagnosed.html` | "I have lupus. What now?": five first steps |
 | `living-with-lupus.html` | Living well, mental health, work, women, pregnancy, young people, myths |
 | `stories.html` | Warrior and caregiver stories |
 | `our-work.html` | The six programme areas |
 | `advocacy.html` | Advocacy and policy, plus take-action routes |
 | `research.html` | Building African lupus evidence |
-| `for-professionals.html` | Recognise, refer, manage — for clinicians |
+| `for-professionals.html` | Recognise, refer, manage (for clinicians) |
 | `events.html` | World Lupus Day 2026 and the full photo gallery |
 | `news.html` | News and insights, filterable |
 | `resources.html` | The Lupus Resource Centre, searchable and filterable |
@@ -113,7 +113,7 @@ It should accept `{message, history}` and return `{reply}`. The knowledge base s
 
 ### Editing the answers
 
-Each entry in the `KB` array is `{ id, k, a, f, cta }` — `k` is the keyword string, `a` is the answer HTML, `f` lists follow-up topic ids shown as chips, and `cta` is an optional link. Add a topic by adding an object and referencing its id from other entries' `f` arrays.
+Each entry in the `KB` array is `{ id, k, a, f, cta }`. `k` is the keyword string, `a` is the answer HTML, `f` lists follow-up topic ids shown as chips, and `cta` is an optional link. Add a topic by adding an object and referencing its id from other entries' `f` arrays.
 
 ## Notes for maintainers
 
