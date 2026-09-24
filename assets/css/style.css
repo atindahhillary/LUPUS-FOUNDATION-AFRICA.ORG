@@ -218,18 +218,18 @@ p{margin:0 0 1.15em}
 
 /* ---------- Hero ---------- */
 .hero{position:relative;background:var(--cream);color:var(--ink);overflow:hidden;isolation:isolate}
-.hero-media{position:absolute;inset:0;z-index:-2;background:var(--lilac-100)}
+.hero-media{position:absolute;inset:0 0 2px 0;z-index:-2;background:var(--lilac-100)}
 .hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 38%}
 /* Light wash: the footage stays visible on the right, the copy side stays calm. */
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;
   background:
     linear-gradient(100deg,rgba(251,248,244,.97) 0%,rgba(251,248,244,.93) 32%,rgba(248,244,253,.74) 56%,rgba(248,244,253,.42) 100%),
     linear-gradient(180deg,rgba(251,248,244,.55) 0%,transparent 26%,transparent 72%,var(--cream) 100%)}
-.hero-inner{padding:clamp(4rem,10vw,8rem) 0 clamp(2.5rem,5vw,4rem);max-width:760px}
-.hero h1{color:var(--purple-900);font-size:var(--fs-h1);margin-bottom:1.1rem}
+.hero-inner{padding:clamp(1.75rem,3.5vw,2.75rem) 0 clamp(1.5rem,3vw,2.25rem);max-width:760px}
+.hero h1{color:var(--purple-900);font-size:var(--fs-h1);margin-bottom:.8rem}
 .hero .lead{color:var(--ink-soft);max-width:600px;font-size:var(--fs-lead)}
 .hero-badge{display:inline-flex;align-items:center;gap:.55rem;background:rgba(255,255,255,.8);border:1px solid var(--lilac-300);color:var(--purple-700);
-  padding:.45rem 1rem;border-radius:var(--r-pill);font-size:var(--fs-xs);font-weight:500;margin-bottom:1.6rem;backdrop-filter:blur(8px)}
+  padding:.45rem 1rem;border-radius:var(--r-pill);font-size:var(--fs-xs);font-weight:500;margin-bottom:1rem;backdrop-filter:blur(8px)}
 .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(226,154,49,.22)}
 .hero-credit{position:absolute;right:1.25rem;bottom:.7rem;font-size:var(--fs-xs);color:var(--muted);z-index:2}
 /* Pause control for the background footage */
@@ -243,7 +243,7 @@ p{margin:0 0 1.15em}
 .hero-vid-toggle[aria-pressed="true"] .ico-pause{display:none}
 
 /* Three doors */
-.doors{position:relative;margin-top:clamp(2.5rem,5vw,3.5rem);display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));max-width:1000px}
+.doors{position:relative;margin-top:clamp(1.25rem,2.5vw,2rem);display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));max-width:1000px}
 .door{position:relative;display:flex;flex-direction:column;gap:.5rem;padding:1.5rem 1.4rem 1.35rem;border-radius:var(--r-lg);
   background:rgba(255,255,255,.86);border:1px solid rgba(180,143,224,.38);backdrop-filter:blur(12px);
   color:var(--purple-900);text-decoration:none;overflow:hidden;transition:.32s var(--ease);box-shadow:var(--shadow-sm)}
@@ -262,8 +262,10 @@ p{margin:0 0 1.15em}
 .door em{font-style:normal;font-size:var(--fs-sm);font-weight:600;display:inline-flex;align-items:center;gap:.35rem;margin-top:.3rem}
 
 /* ---------- Page header (inner pages) ---------- */
-.page-head{position:relative;background:var(--lilac-50);color:var(--ink);overflow:hidden;isolation:isolate}
-.page-head-media{position:absolute;inset:0;z-index:-2}
+/* Base matches the page canvas so a fractional-pixel bottom edge never shows a hairline */
+.page-head{position:relative;background:var(--cream);color:var(--ink);overflow:hidden;isolation:isolate}
+/* Photo stops 2px short of the edge so a fractional-pixel bottom never shows a hairline of it */
+.page-head-media{position:absolute;inset:0 0 2px 0;z-index:-2}
 .page-head-media img{width:100%;height:100%;object-fit:cover;object-position:center 40%}
 .page-head::after{content:"";position:absolute;inset:0;z-index:-1;
   background:
