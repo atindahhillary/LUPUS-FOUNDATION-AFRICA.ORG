@@ -388,12 +388,13 @@
   }
 
   /* -------------------------------------------------------- Floating CTA */
+  // Donate floats on screen on every page from the first screen, except where
+  // it would point at the page you are already on (Donate) or pull a buyer
+  // away from finishing an order (Checkout).
   function initFloatGive() {
     var fab = $('.float-give');
     if (!fab) return;
-    var onScroll = function () { fab.classList.toggle('is-on', window.scrollY > 900); };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
+    if (/(donate|checkout)\.html$/.test(location.pathname)) fab.remove();
   }
 
   /* --------------------------------------------------------------- Forms */

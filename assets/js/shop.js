@@ -32,7 +32,7 @@
     paystackPublicKey: ''                // 'pk_live_...' switches on instant card payment
   };
 
-  var TEE_PRICE = 1500; // PLACEHOLDER until LFA confirms the T-shirt price
+  var TEE_PRICE = 1500; // per T-shirt, both designs
   var SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
   var MAX_QTY = 20;
 
