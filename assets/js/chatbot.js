@@ -137,6 +137,10 @@
       a: '<p>Thank you. Donations keep support groups, awareness work and patient assistance running.</p><p>We deliberately do not publish payment details on the website, because donation pages are a common target for impersonation. <strong>Please contact us directly and we will confirm the current options and send you a receipt.</strong></p>',
       f: ['contact', 'partner'], cta: { l: 'Ways to give', h: 'donate.html' } },
 
+    { id: 'shop', k: 'shop merchandise merch buy purchase tshirt t-shirt shirt hoodie hoodies notebook store order wear',
+      a: '<p>Yes. The <strong>LFA shop</strong> sells Lupus Warrior hoodies and T-shirts, the Steps for Change T-shirt from World Lupus Day 2026, and the Lupus Warrior notebook.</p><p>Add items to your cart and check out on the website. You can pay by M-Pesa, by card, or when you collect in Nairobi, and our team confirms every order with you before you pay. Proceeds support our work.</p>',
+      f: ['donate', 'contact'], cta: { l: 'Visit the shop', h: 'shop.html' } },
+
     { id: 'partner', k: 'partner partnership organisation company corporate sponsor collaborate business hospital media pharmaceutical',
       a: '<p>We work with healthcare, corporate, research, media, pharmaceutical, donor and event partners. Current partners include Aga Khan University Hospital, Mater Hospital, Kenyatta National Hospital, Nairobi Arthritis Clinic, Vimbo Health, AAR Healthcare, Citizen TV, NTV Kenya and KBC.</p>',
       f: ['contact', 'research'], cta: { l: 'Partner with us', h: 'partner-with-us.html' } },
@@ -203,7 +207,8 @@
     support:   ['support group','near me','meet other','talk to other','someone like me'],
     newly:     ['just been diagnosed','just diagnosed','newly diagnosed','was diagnosed','what do i do now','where do i start'],
     contact:   ['talk to a person','speak to someone','real person','human','phone number','call you','reach you'],
-    tool:      ['do i have lupus','think i have lupus','might have lupus','could i have lupus']
+    tool:      ['do i have lupus','think i have lupus','might have lupus','could i have lupus'],
+    shop:      ['hoodie','hoodies','t-shirt','t-shirts','tshirt','t shirt','notebook','merch','merchandise','the shop','your shop','buy a','buy the','buy some']
   };
 
   function phraseHit(raw) {
@@ -211,7 +216,8 @@
     var hit = null;
     Object.keys(PHRASES).forEach(function (id) {
       PHRASES[id].forEach(function (ph) {
-        if (low.indexOf(ph) > -1 && (!hit || ph.length > hit.len)) hit = { id: id, len: ph.length };
+        var len = ph.length + (id === 'shop' ? 20 : 0);
+        if (low.indexOf(ph) > -1 && (!hit || len > hit.len)) hit = { id: id, len: len };
       });
     });
     return hit;
@@ -395,7 +401,7 @@
         support: 'Support groups', newly: 'Just diagnosed', cost: 'Affording care', advocacy: 'Advocacy',
         membership: 'Become a member', volunteer: 'Volunteer', donate: 'Donate', partner: 'Partnerships',
         about: 'About LFA', research: 'Research', professionals: 'For clinicians', stories: 'Warrior stories',
-        myths: 'Myths and facts', events: 'Events', contact: 'Contact LFA'
+        myths: 'Myths and facts', events: 'Events', shop: 'Visit the shop', contact: 'Contact LFA'
       };
       return L[e.id] || e.id;
     }

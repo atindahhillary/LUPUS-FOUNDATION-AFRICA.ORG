@@ -86,6 +86,38 @@ If a request to that endpoint fails, the form falls back to the email client aut
 
 ---
 
+## The shop
+
+`shop.html` lists the merchandise, `checkout.html` takes the order, and a cart drawer is available from the bag icon on every page. Everything runs from `assets/js/shop.js`; the cart is kept in the visitor's own browser.
+
+### Products and prices
+
+Edit the `PRODUCTS` array near the top of `shop.js`. Each product has an `id`, `name`, `price` (in KES), `sizes` (or `null`), a main image and a `gallery`. Product photos live in `assets/img/shop/` as 800 x 1000 JPEGs.
+
+**The T-shirt price is a placeholder.** `TEE_PRICE` is set to 1500 until LFA confirms the real price. Change that one number and both T-shirts update.
+
+### Delivery fees
+
+`DELIVERY` in `shop.js` lists the options. A `fee` of `0` shows as Free, a number is added to the total, and `null` shows "Confirmed when we call" with the total marked "+ delivery". Rider and courier fees are `null` until LFA agrees its rates.
+
+### How orders reach LFA
+
+Out of the box, the confirmation page asks the customer to send their order to LFA on WhatsApp (+254 142 851 978) or by email, with every detail filled in. Nothing is lost, but the customer has to press send.
+
+To receive orders automatically, set `orderEndpoint` in the `SHOP` settings to a form backend such as [Formspree](https://formspree.io). Orders are then posted as JSON with a readable `summary` field and a `_subject` line, and the customer sees "Thank you, your order is in". If the endpoint ever fails, the page falls back to the WhatsApp and email buttons.
+
+### Payments
+
+| Option | Out of the box | Once configured |
+| --- | --- | --- |
+| M-Pesa | LFA confirms the order, then sends payment details from its official number | Set `mpesa.paybill` (account = order number) or `mpesa.till` to show pay-now instructions straight away |
+| Card | LFA sends a secure payment link after confirming | Set `paystackPublicKey` (`pk_live_...`) for instant card payment through Paystack inline checkout |
+| Pay when you collect | Available for orders collected in Nairobi | No setup needed |
+
+**Before switching on card payments:** a Paystack public key is safe to publish, but a browser callback is not proof of payment. Always confirm the payment in the Paystack dashboard before dispatching an order. Never put a Paystack secret key in any file in this repository.
+
+Every order is confirmed by a person before the customer pays, and the site tells customers LFA will only contact them from +254 142 851 978 or info@lupusfa.org, which protects them from anyone impersonating the shop.
+
 ## Ask LFA (the chat assistant)
 
 `assets/js/chatbot.js` powers the "Ask about lupus" assistant in the bottom-left corner of every page.

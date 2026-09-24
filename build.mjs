@@ -8,9 +8,10 @@
  * Each page begins with a JSON front-matter block:
  *   <!--meta { "title": "...", "description": "...", "nav": "about" } -->
  */
-import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const SRC = join(root, 'src');
@@ -35,6 +36,18 @@ function parsePage(raw, file) {
     throw new Error(`Invalid JSON front matter in ${file}: ${err.message}`);
   }
   return { meta, body: raw.slice(m[0].length).trim() };
+}
+
+/**
+ * Cache-busting. GitHub Pages caches static files for about ten minutes, so a
+ * returning visitor could get new HTML against an old stylesheet. Each CSS and
+ * JS reference gets ?v=<content hash>, which only changes when the file does.
+ */
+function fingerprint(html) {
+  return html.replace(/(href|src)="(assets\/(?:css|js)\/[^"?]+\.(?:css|js))"/g, (m, attr, path) => {
+    const hash = createHash('sha1').update(readFileSync(join(root, path))).digest('hex').slice(0, 10);
+    return `${attr}="${path}?v=${hash}"`;
+  });
 }
 
 /** Marks the active top-level nav item so CSS/AT can show current page. */
@@ -76,7 +89,7 @@ function build() {
       throw new Error(`Unreplaced placeholder(s) in ${file}: ${leftover.join(', ')}`);
     }
 
-    writeFileSync(join(root, file), out, 'utf8');
+    writeFileSync(join(root, file), fingerprint(out), 'utf8');
     if (meta.noindex !== true) {
       sitemap.push({ loc: BASE + slug, priority: meta.priority || (slug ? '0.7' : '1.0') });
     }

@@ -1,0 +1,115 @@
+<!--meta {
+  "title": "Checkout",
+  "description": "Complete your order from the Lupus Foundation of Africa shop.",
+  "nav": "shop",
+  "noindex": true,
+  "head": "<meta name=\"robots\" content=\"noindex\">"
+} -->
+
+<section class="page-head page-head--slim">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><a href="shop.html">Shop</a><span>/</span>Checkout</nav>
+    <h1>Checkout</h1>
+  </div>
+</section>
+
+<section class="section-tight" id="co-app">
+  <div class="wrap">
+    <ol class="steps" id="co-steps" aria-label="Checkout progress">
+      <li>Cart</li>
+      <li>Details &amp; payment</li>
+      <li>Confirmation</li>
+    </ol>
+
+    <!-- Empty cart -->
+    <div class="confirm" id="co-empty" hidden>
+      <p class="eyebrow">Your cart</p>
+      <h2>Your cart is empty</h2>
+      <p class="lead">Add a hoodie, a T-shirt or a notebook, then come back here to check out.</p>
+      <div class="btn-row"><a class="btn btn--primary" href="shop.html">Browse the shop</a></div>
+    </div>
+
+    <!-- Checkout form -->
+    <div class="checkout" id="co-main" hidden>
+      <form class="checkout-form" id="co-form" novalidate>
+
+        <fieldset class="co-block">
+          <legend><span class="co-num">1</span>Your details</legend>
+          <div class="field">
+            <label for="co-name">Full name <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="co-name" name="name" required autocomplete="name" maxlength="120">
+            <p class="field-err" role="alert"></p>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="co-phone">Phone or WhatsApp <span class="req" aria-hidden="true">*</span></label>
+              <input type="tel" id="co-phone" name="phone" required autocomplete="tel" inputmode="tel" pattern="[+0-9 \(\)\-]{9,20}" placeholder="0712 345 678">
+              <p class="field-hint">We call or WhatsApp this number to confirm your order.</p>
+              <p class="field-err" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="co-email">Email <span id="co-email-req" hidden><span class="req" aria-hidden="true">*</span></span></label>
+              <input type="email" id="co-email" name="email" autocomplete="email" maxlength="160">
+              <p class="field-hint">Optional. For your receipt and any payment link.</p>
+              <p class="field-err" role="alert"></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="co-block">
+          <legend><span class="co-num">2</span>Delivery</legend>
+          <div class="opt-list" id="delivery-options"></div>
+          <div id="co-address" hidden>
+            <div class="form-row">
+              <div class="field">
+                <label for="co-town">Town or city <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="co-town" name="town" autocomplete="address-level2" maxlength="80">
+                <p class="field-err" role="alert"></p>
+              </div>
+              <div class="field">
+                <label for="co-street">Estate, street or building <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="co-street" name="street" autocomplete="street-address" maxlength="160">
+                <p class="field-err" role="alert"></p>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="co-notes">Notes for our team</label>
+            <textarea id="co-notes" name="notes" maxlength="400" placeholder="Anything we should know, such as a landmark or the best time to call."></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="co-block">
+          <legend><span class="co-num">3</span>Payment</legend>
+          <div class="opt-list" id="payment-options"></div>
+        </fieldset>
+
+        <div style="position:absolute;left:-9999px" aria-hidden="true">
+          <label for="co-hp">Leave this field empty</label>
+          <input type="text" id="co-hp" name="_hp" tabindex="-1" autocomplete="off">
+        </div>
+
+        <button class="btn btn--gold btn--block" type="submit" id="place-order">Place order</button>
+        <p class="form-note" style="margin-top:.8rem">We use your details only to process this order. We never share them. Proceeds support LFA's work with people living with lupus.</p>
+      </form>
+
+      <aside class="summary" aria-labelledby="sum-title">
+        <h2 id="sum-title">Order summary</h2>
+        <div id="sum-lines"></div>
+        <div id="sum-rows"></div>
+        <button type="button" class="arrow-link sum-edit" data-cart-open>Edit cart
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </aside>
+    </div>
+
+    <!-- Confirmation -->
+    <div id="co-done" hidden></div>
+
+    <noscript>
+      <div class="disclaimer">
+        <p>Checkout needs JavaScript. You can still order by calling or messaging us on WhatsApp on <a href="https://wa.me/254142851978">+254 142 851 978</a>.</p>
+      </div>
+    </noscript>
+  </div>
+</section>

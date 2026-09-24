@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&display=swap">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v=77759051c4">
 <noscript><style>
   [data-reveal]{opacity:1!important;transform:none!important}
   .acc-panel{max-height:none!important}
@@ -125,18 +125,24 @@
             <li><a href="events.html">Events &amp; Campaigns<small>World Lupus Day and more</small></a></li>
           </ul>
         </li>
+        <li data-nav="shop"><a href="shop.html">Shop</a></li>
         <li data-nav="news"><a href="news.html">News</a></li>
         <li data-nav="resources"><a href="resources.html">Resources</a></li>
         <li data-nav="contact"><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
 
-    <div class="nav-cta">
-      <a class="btn btn--ghost btn--sm" href="get-involved.html">Join us</a>
-      <a class="btn btn--gold btn--sm" href="donate.html">Donate</a>
+    <div class="nav-actions">
+      <div class="nav-cta">
+        <a class="btn btn--ghost btn--sm" href="get-involved.html">Join us</a>
+        <a class="btn btn--gold btn--sm" href="donate.html">Donate</a>
+      </div>
+      <button class="cart-btn" type="button" data-cart-open aria-controls="cart-drawer" aria-label="Open cart, empty">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></svg>
+        <span class="cart-count" data-cart-count hidden>0</span>
+      </button>
+      <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span></button>
     </div>
-
-    <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span></button>
   </div>
 </header>
 
@@ -177,6 +183,7 @@
         <a href="events.html">Events &amp; Campaigns</a>
       </div>
     </li>
+    <li><a href="shop.html">Shop</a></li>
     <li><a href="news.html">News &amp; Insights</a></li>
     <li><a href="resources.html">Resource Centre</a></li>
     <li><a href="contact.html">Contact</a></li>
@@ -293,7 +300,7 @@
       <p class="eyebrow">Other ways to help</p>
       <h2>Not everyone can be in the room, and that is fine</h2>
     </div>
-    <div class="grid g-3">
+    <div class="grid g-4">
       <article class="card card--hover" data-reveal>
         <div class="card-icon card-icon--gold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
         <h4>Give</h4>
@@ -307,6 +314,12 @@
         <a class="arrow-link" href="partner-with-us.html" style="margin-top:.8rem">Partnership options <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </article>
       <article class="card card--hover" data-reveal data-reveal-delay="160">
+        <div class="card-icon card-icon--gold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></svg></div>
+        <h4>Shop</h4>
+        <p>Lupus Warrior hoodies, T-shirts and notebooks. Proceeds support our work.</p>
+        <a class="arrow-link" href="shop.html" style="margin-top:.8rem">Visit the shop <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+      <article class="card card--hover" data-reveal data-reveal-delay="240">
         <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></div>
         <h4>Share</h4>
         <p style="font-size:var(--fs-sm)">Share a story or a fact with your own network. Visibility is the whole point, and it costs nothing.</p>
@@ -363,6 +376,7 @@
         <h4>Take Action</h4>
         <ul>
           <li><a href="donate.html">Donate</a></li>
+          <li><a href="shop.html">Shop LFA merchandise</a></li>
           <li><a href="get-involved.html">Become a member</a></li>
           <li><a href="get-involved.html#volunteer">Volunteer</a></li>
           <li><a href="get-involved.html#support-groups">Join a support group</a></li>
@@ -441,7 +455,30 @@
   <p class="chat-foot">General information only, not medical advice. In an emergency, contact a health professional. Nothing you type here leaves your device.</p>
 </aside>
 
-<script src="assets/js/site.js" defer></script>
-<script src="assets/js/chatbot.js" defer></script>
+<!-- Shop: cart drawer and add-to-cart confirmation, available on every page -->
+<div class="cart-overlay" id="cart-overlay" data-cart-close></div>
+<aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true">
+  <div class="cart-head">
+    <h2 id="cart-title">Your cart</h2>
+    <button class="cart-close" type="button" data-cart-close aria-label="Close cart">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="cart-body" id="cart-lines"></div>
+  <div class="cart-foot" id="cart-foot" hidden>
+    <div class="cart-sub"><span>Subtotal</span><span id="cart-subtotal">KES 0</span></div>
+    <p class="cart-note">Delivery and payment options are chosen at checkout.</p>
+    <a class="btn btn--gold btn--block" href="checkout.html">Checkout</a>
+    <button class="btn btn--ghost btn--block" type="button" data-cart-close>Continue shopping</button>
+  </div>
+</aside>
+<div class="shop-toast" id="shop-toast" role="status" aria-live="polite">
+  <span id="shop-toast-msg"></span>
+  <button type="button" data-cart-open>View cart</button>
+</div>
+
+<script src="assets/js/site.js?v=18e991896f" defer></script>
+<script src="assets/js/chatbot.js?v=0b67271aeb" defer></script>
+<script src="assets/js/shop.js?v=d335183d7e" defer></script>
 </body>
 </html>

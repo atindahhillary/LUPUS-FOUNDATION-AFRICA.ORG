@@ -105,7 +105,30 @@
   <p class="chat-foot">General information only, not medical advice. In an emergency, contact a health professional. Nothing you type here leaves your device.</p>
 </aside>
 
+<!-- Shop: cart drawer and add-to-cart confirmation, available on every page -->
+<div class="cart-overlay" id="cart-overlay" data-cart-close></div>
+<aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true">
+  <div class="cart-head">
+    <h2 id="cart-title">Your cart</h2>
+    <button class="cart-close" type="button" data-cart-close aria-label="Close cart">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="cart-body" id="cart-lines"></div>
+  <div class="cart-foot" id="cart-foot" hidden>
+    <div class="cart-sub"><span>Subtotal</span><span id="cart-subtotal">KES 0</span></div>
+    <p class="cart-note">Delivery and payment options are chosen at checkout.</p>
+    <a class="btn btn--gold btn--block" href="checkout.html">Checkout</a>
+    <button class="btn btn--ghost btn--block" type="button" data-cart-close>Continue shopping</button>
+  </div>
+</aside>
+<div class="shop-toast" id="shop-toast" role="status" aria-live="polite">
+  <span id="shop-toast-msg"></span>
+  <button type="button" data-cart-open>View cart</button>
+</div>
+
 <script src="assets/js/site.js" defer></script>
 <script src="assets/js/chatbot.js" defer></script>
+<script src="assets/js/shop.js" defer></script>
 </body>
 </html>
