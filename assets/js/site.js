@@ -10,6 +10,8 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
   /* ---------------------------------------------------------------- Nav */
+  var NAV_FULL = 1190; // keep in step with the full-menu breakpoint in style.css
+
   function initNav() {
     var nav = $('.nav');
     if (nav) {
@@ -27,7 +29,7 @@
       trigger.setAttribute('aria-haspopup', 'true');
 
       trigger.addEventListener('click', function (e) {
-        if (window.innerWidth < 1060) return; // drawer handles small screens
+        if (window.innerWidth < NAV_FULL) return; // drawer handles small screens
         e.preventDefault();
         var open = li.classList.contains('is-open');
         closeAllMenus();
@@ -38,13 +40,13 @@
       });
 
       li.addEventListener('mouseenter', function () {
-        if (window.innerWidth < 1060) return;
+        if (window.innerWidth < NAV_FULL) return;
         closeAllMenus();
         li.classList.add('is-open');
         trigger.setAttribute('aria-expanded', 'true');
       });
       li.addEventListener('mouseleave', function () {
-        if (window.innerWidth < 1060) return;
+        if (window.innerWidth < NAV_FULL) return;
         li.classList.remove('is-open');
         trigger.setAttribute('aria-expanded', 'false');
       });

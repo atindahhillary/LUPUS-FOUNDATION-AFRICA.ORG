@@ -163,20 +163,20 @@ p{margin:0 0 1.15em}
 
 .nav{position:sticky;top:0;z-index:100;background:rgba(251,248,244,.86);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line-soft);transition:box-shadow .3s,background .3s}
 .nav.is-stuck{box-shadow:0 2px 20px rgba(27,18,54,.08);background:rgba(251,248,244,.96)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;min-height:var(--nav-h)}
-.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;flex:none}
-.brand img{width:46px;height:auto}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:.75rem;min-height:var(--nav-h);width:min(100% - 2.5rem,1400px)}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;flex:none}
+.brand img{width:42px;height:auto}
 .brand-text{display:flex;flex-direction:column;line-height:1.05}
 .brand-text b{font-family:var(--display);font-size:1.02rem;font-weight:700;color:var(--purple-900);letter-spacing:-.01em}
 .brand-text span{font-size:.665rem;letter-spacing:.17em;text-transform:uppercase;color:var(--purple-500);font-weight:600}
 .menu{display:none}
-@media(min-width:1060px){
-  .menu{display:flex;align-items:center;gap:.15rem;list-style:none;margin:0;padding:0}
+@media(min-width:1190px){
+  .menu{display:flex;align-items:center;gap:.1rem;list-style:none;margin:0;padding:0}
   .menu>li{position:relative}
-  .menu>li>a{display:flex;align-items:center;gap:.28rem;padding:.6rem .72rem;border-radius:var(--r-sm);font-size:var(--fs-sm);font-weight:500;color:var(--ink-soft);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap}
+  .menu>li>a{display:flex;align-items:center;gap:.28rem;padding:.6rem .5rem;border-radius:var(--r-sm);font-size:var(--fs-sm);font-weight:500;color:var(--ink-soft);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap}
   .menu>li>a:hover,.menu>li.is-open>a{color:var(--purple-700);background:var(--lilac-50)}
   .menu>li[aria-current]>a{color:var(--purple-700);font-weight:600}
-  .menu>li[aria-current]>a::after{content:"";position:absolute;left:.72rem;right:.72rem;bottom:.22rem;height:2px;background:var(--gold);border-radius:2px}
+  .menu>li[aria-current]>a::after{content:"";position:absolute;left:.5rem;right:.5rem;bottom:.22rem;height:2px;background:var(--gold);border-radius:2px}
   .caret{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.2;transition:transform .25s var(--ease)}
   .menu>li.is-open .caret{transform:rotate(180deg)}
   .submenu{position:absolute;top:calc(100% + 6px);left:-.4rem;min-width:265px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-lg);padding:.5rem;list-style:none;margin:0;
@@ -186,10 +186,15 @@ p{margin:0 0 1.15em}
   .submenu a:hover{background:var(--lilac-50);color:var(--purple-700)}
   .submenu a small{display:block;font-size:var(--fs-xs);color:var(--muted);margin-top:.12rem;line-height:1.4}
 }
-.nav-cta{display:none}
-@media(min-width:1060px){.nav-cta{display:flex;gap:.55rem;flex:none}}
+/* Measured: the full menu needs a 1171px window, adding Join us needs 1264px.
+   Breakpoints sit just above those, so nothing is ever pushed off screen. */
+.nav-cta{display:none;gap:.4rem;flex:none}
+.nav-cta .btn{padding:.62rem 1rem}
+@media(min-width:600px){.nav-cta{display:flex}}
+.nav-cta .nav-join{display:none}
+@media(min-width:1270px){.nav-cta .nav-join{display:inline-flex}}
 .burger{display:grid;place-items:center;width:46px;height:46px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--paper);cursor:pointer;flex:none}
-@media(min-width:1060px){.burger{display:none}}
+@media(min-width:1190px){.burger{display:none}}
 .burger span{display:block;width:20px;height:2px;background:var(--purple-900);border-radius:2px;position:relative;transition:.3s var(--ease)}
 .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:20px;height:2px;background:var(--purple-900);border-radius:2px;transition:.3s var(--ease)}
 .burger span::before{top:-6px}.burger span::after{top:6px}
@@ -200,7 +205,7 @@ p{margin:0 0 1.15em}
 .drawer{position:fixed;inset:0;z-index:99;background:var(--cream);padding:calc(var(--nav-h) + 1.5rem) 1.25rem 2.5rem;overflow-y:auto;
   transform:translateX(100%);transition:transform .38s var(--ease);visibility:hidden}
 .drawer.is-open{transform:translateX(0);visibility:visible}
-@media(min-width:1060px){.drawer{display:none}}
+@media(min-width:1190px){.drawer{display:none}}
 .drawer ul{list-style:none;margin:0;padding:0}
 .drawer>ul>li{border-bottom:1px solid var(--line-soft)}
 .drawer>ul>li>a,.drawer-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;padding:1.05rem .35rem;font-family:var(--display);font-size:var(--fs-lead);font-weight:600;color:var(--purple-900);text-decoration:none;background:none;border:0;cursor:pointer;text-align:left}
@@ -559,7 +564,7 @@ p{margin:0 0 1.15em}
 .footer-bottom{padding-bottom:5.5rem}
 /* Add-to-cart messages sit above the floating buttons on phones */
 @media(max-width:620px){.shop-toast{bottom:5rem}}
-@media(max-width:1059px){.float-give{right:.9rem;bottom:.9rem}}
+@media(max-width:1189px){.float-give{right:.9rem;bottom:.9rem}}
 
 /* ---------- Reveal ---------- */
 [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
@@ -670,7 +675,7 @@ p{margin:0 0 1.15em}
 /* ==========================================================================
    Shop: header cart, product grid, quick view, cart drawer, checkout
    ========================================================================== */
-.nav-actions{display:flex;align-items:center;gap:.6rem;flex:none}
+.nav-actions{display:flex;align-items:center;gap:.5rem;flex:none}
 .cart-btn{position:relative;display:grid;place-items:center;width:46px;height:46px;flex:none;border:1px solid var(--line);border-radius:var(--r-sm);
   background:var(--paper);color:var(--purple-900);cursor:pointer;transition:border-color .2s,background .2s}
 .cart-btn:hover{border-color:var(--purple-500);background:var(--lilac-50)}
@@ -678,6 +683,13 @@ p{margin:0 0 1.15em}
 .cart-count{position:absolute;top:-7px;right:-7px;min-width:21px;height:21px;padding:0 5px;border-radius:var(--r-pill);background:var(--gold);color:#241543;
   font-size:var(--fs-xs);font-weight:800;line-height:17px;text-align:center;border:2px solid var(--cream)}
 .cart-count[hidden]{display:none}
+@media(max-width:380px){
+  .nav-inner{gap:.5rem}
+  .brand{gap:.45rem}.brand img{width:36px}
+  .brand-text b{font-size:.9rem}.brand-text span{font-size:.6rem}
+  .nav-actions{gap:.4rem}
+  .cart-btn,.burger{width:40px;height:40px}
+}
 @keyframes cart-bump{0%{transform:scale(1)}35%{transform:scale(1.16)}100%{transform:scale(1)}}
 .cart-btn.is-bumped{animation:cart-bump .45s var(--ease)}
 
