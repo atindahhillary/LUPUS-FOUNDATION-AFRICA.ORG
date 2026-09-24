@@ -293,7 +293,7 @@
           '<span id="qv-qty">1</span>' +
           '<button type="button" data-qv-step="1" aria-label="Increase quantity">+</button></div>' +
           '<button type="button" class="btn btn--gold" id="qv-add">Add to cart &middot; ' + money(p.price) + '</button></div>' +
-        '<p class="qv-note">Proceeds support LFA’s work with people living with lupus across Africa.</p>' +
+        '<p class="qv-note">Every purchase supports the Lupus Foundation of Africa.</p>' +
       '</div>';
 
     $$('input[name="qv-size"]', qv).forEach(function (r) {

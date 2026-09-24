@@ -696,6 +696,9 @@ p{margin:0 0 1.15em}
 .cart-btn.is-bumped{animation:cart-bump .45s var(--ease)}
 
 /* Product grid */
+.shop-note{display:flex;align-items:center;gap:.75rem;margin:0 0 1.4rem;padding:.9rem 1.2rem;border:1px solid var(--lilac-300);border-radius:var(--r);background:var(--lilac-50);color:var(--purple-900);font-size:var(--fs-sm);line-height:1.5}
+.shop-note svg{flex:none;width:20px;height:20px;fill:none;stroke:var(--purple-500);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.shop-note strong{font-weight:650}
 .shop-bar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem}
 .shop-bar .chips{margin-bottom:0}
 .shop-grid{display:grid;gap:clamp(1.25rem,2.4vw,2rem);grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
