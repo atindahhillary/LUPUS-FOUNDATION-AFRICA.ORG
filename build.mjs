@@ -40,11 +40,12 @@ function parsePage(raw, file) {
 
 /**
  * Cache-busting. GitHub Pages caches static files for about ten minutes, so a
- * returning visitor could get new HTML against an old stylesheet. Each CSS and
- * JS reference gets ?v=<content hash>, which only changes when the file does.
+ * returning visitor could get new HTML against an old stylesheet or photo. Each
+ * CSS, JS, image and video reference gets ?v=<content hash>, which only changes
+ * when the file does.
  */
 function fingerprint(html) {
-  return html.replace(/(href|src)="(assets\/(?:css|js)\/[^"?]+\.(?:css|js))"/g, (m, attr, path) => {
+  return html.replace(/(href|src|poster|data-full)="(assets\/(?:css|js|img|video)\/[^"?]+\.(?:css|js|jpg|png|mp4))"/g, (m, attr, path) => {
     const hash = createHash('sha1').update(readFileSync(join(root, path))).digest('hex').slice(0, 10);
     return `${attr}="${path}?v=${hash}"`;
   });

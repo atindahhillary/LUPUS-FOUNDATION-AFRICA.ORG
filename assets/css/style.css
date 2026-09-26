@@ -307,7 +307,7 @@ p{margin:0 0 1.15em}
 .media{border-radius:var(--r-lg);overflow:hidden;position:relative;background:var(--lilac-100)}
 .media img{width:100%;height:100%;object-fit:cover}
 .media--tall{aspect-ratio:4/5}
-.media--wide{aspect-ratio:16/10}
+.media--wide{aspect-ratio:3/2}
 .media--square{aspect-ratio:1}
 .media-caption{font-size:var(--fs-sm);color:var(--muted);margin-top:.7rem;line-height:1.5}
 .media-stack{position:relative}
@@ -354,7 +354,7 @@ p{margin:0 0 1.15em}
 
 .story{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;transition:.3s var(--ease)}
 .story:hover{box-shadow:var(--shadow);transform:translateY(-4px)}
-.story-media{aspect-ratio:4/3;overflow:hidden;background:var(--lilac-100)}
+.story-media{aspect-ratio:3/2;overflow:hidden;background:var(--lilac-100)}
 .story-media img{width:100%;height:100%;object-fit:cover;transition:transform .55s var(--ease)}
 /* People shots are portrait crops framed on the face, so give them a taller
    frame and anchor the top of the image rather than its centre. */

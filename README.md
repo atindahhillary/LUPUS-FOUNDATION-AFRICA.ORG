@@ -92,7 +92,7 @@ If a request to that endpoint fails, the form falls back to the email client aut
 
 ### Products and prices
 
-Edit the `PRODUCTS` array near the top of `shop.js`. Each product has an `id`, `name`, `price` (in KES), `sizes` (or `null`), a main image and a `gallery`. Product photos live in `assets/img/shop/` as 800 x 1000 JPEGs.
+Edit the `PRODUCTS` array near the top of `shop.js`. Each product has an `id`, `name`, `price` (in KES), `sizes` (or `null`), a main image and a `gallery`. Product photos live in `assets/img/shop/` as 4:5 JPEGs (800 x 1000 for main shots, 640 x 800 for notebook details), matching the 4:5 product frames.
 
 Both T-shirts share one price, `TEE_PRICE` (KES 1,500 each), so changing that single number updates both.
 
@@ -154,7 +154,8 @@ Each entry in the `KB` array is `{ id, k, a, f, cta }`. `k` is the keyword strin
 - **The symptom reflection tool** (`understanding-lupus.html`) is deliberately not a diagnostic tool. It counts selections and encourages a clinical conversation. Please keep it that way.
 - **Personal stories** are published with the consent of the person who shared them, and the site says so. Remove any story on request.
 - **Photography** from World Lupus Day 2026 is by Raymond Kiunga and is credited in the footer and on the gallery.
-- **The hero video** (`assets/video/lfa-hero.mp4`) was built from the event photographs. `.work/makevideo.sh` regenerates the master; the repo ships a 1280x720 web encode. It is muted, loops, pauses when scrolled out of view, honours `prefers-reduced-motion`, and has a visible pause control.
+- **Photos are sized to their frames**, so the browser never has to crop them. Event photos are the full 3:2 camera frame at 1024 x 683 and sit in 3:2 frames. Story portraits and tall frames are 4:5 (760 x 950), team avatars 1:1 (360 x 360) and shop images 4:5. A landscape shot used in a tall or square frame gets its own crop, named `-tall` or `-sq`. All of them are retouched once from the original downloads (light denoise, shadow lift, clarity, gentle vibrance, sharpening) by `.work/render_all.py` using `.work/retouch.py`. When you add a photo, export it at the frame's ratio and set its real `width` and `height` on the `<img>`. The build adds a content hash to image and video URLs, so a replaced photo shows up straight away.
+- **The hero video** (`assets/video/lfa-hero.mp4`) was built from the event photographs. `.work/makevideo.sh` regenerates the master (`SRC=retouched bash makevideo.sh` uses the retouched frames); the repo ships a 1280x720 web encode. It is muted, loops, pauses when scrolled out of view, honours `prefers-reduced-motion`, and has a visible pause control.
 
 ## Accessibility and performance
 
