@@ -52,7 +52,7 @@
   --shadow:0 4px 12px rgba(27,18,54,.07),0 12px 32px rgba(27,18,54,.06);
   --shadow-lg:0 12px 28px rgba(27,18,54,.10),0 28px 64px rgba(27,18,54,.10);
   --wrap:1200px;
-  --nav-h:78px;
+  --nav-h:84px;
   --ease:cubic-bezier(.22,1,.36,1);
 }
 
@@ -164,8 +164,8 @@ p{margin:0 0 1.15em}
 .nav{position:sticky;top:0;z-index:100;background:rgba(251,248,244,.86);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line-soft);transition:box-shadow .3s,background .3s}
 .nav.is-stuck{box-shadow:0 2px 20px rgba(27,18,54,.08);background:rgba(251,248,244,.96)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:.75rem;min-height:var(--nav-h);width:min(100% - 2.5rem,1400px)}
-.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;flex:none}
-.brand img{width:42px;height:auto}
+.brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;flex:none}
+.brand img{width:65px;height:auto}
 .brand-text{display:flex;flex-direction:column;line-height:1.05}
 .brand-text b{font-family:var(--display);font-size:1.02rem;font-weight:700;color:var(--purple-900);letter-spacing:-.01em}
 .brand-text span{font-size:.665rem;letter-spacing:.17em;text-transform:uppercase;color:var(--purple-500);font-weight:600}
@@ -173,7 +173,7 @@ p{margin:0 0 1.15em}
 @media(min-width:1190px){
   .menu{display:flex;align-items:center;gap:.1rem;list-style:none;margin:0;padding:0}
   .menu>li{position:relative}
-  .menu>li>a{display:flex;align-items:center;gap:.28rem;padding:.6rem .5rem;border-radius:var(--r-sm);font-size:var(--fs-sm);font-weight:500;color:var(--ink-soft);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap}
+  .menu>li>a{display:flex;align-items:center;gap:.28rem;padding:.6rem .42rem;border-radius:var(--r-sm);font-size:var(--fs-sm);font-weight:500;color:var(--ink-soft);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap}
   .menu>li>a:hover,.menu>li.is-open>a{color:var(--purple-700);background:var(--lilac-50)}
   .menu>li[aria-current]>a{color:var(--purple-700);font-weight:600}
   .menu>li[aria-current]>a::after{content:"";position:absolute;left:.5rem;right:.5rem;bottom:.22rem;height:2px;background:var(--gold);border-radius:2px}
@@ -186,10 +186,10 @@ p{margin:0 0 1.15em}
   .submenu a:hover{background:var(--lilac-50);color:var(--purple-700)}
   .submenu a small{display:block;font-size:var(--fs-xs);color:var(--muted);margin-top:.12rem;line-height:1.4}
 }
-/* Measured: the full menu needs a 1171px window, adding Join us needs 1264px.
+/* Measured with the 70px logo: the full menu needs a 1165px window, adding Join us needs 1254px.
    Breakpoints sit just above those, so nothing is ever pushed off screen. */
 .nav-cta{display:none;gap:.4rem;flex:none}
-.nav-cta .btn{padding:.62rem 1rem}
+.nav-cta .btn{padding:.62rem .85rem}
 @media(min-width:600px){.nav-cta{display:flex}}
 .nav-cta .nav-join{display:none}
 @media(min-width:1270px){.nav-cta .nav-join{display:inline-flex}}
@@ -687,7 +687,7 @@ p{margin:0 0 1.15em}
 .cart-count[hidden]{display:none}
 @media(max-width:380px){
   .nav-inner{gap:.5rem}
-  .brand{gap:.45rem}.brand img{width:36px}
+  .brand{gap:.45rem}.brand img{width:clamp(48px,15vw,56px)}
   .brand-text b{font-size:.9rem}.brand-text span{font-size:.6rem}
   .nav-actions{gap:.4rem}
   .cart-btn,.burger{width:40px;height:40px}
