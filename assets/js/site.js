@@ -10,7 +10,7 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
   /* ---------------------------------------------------------------- Nav */
-  var NAV_FULL = 1190; // keep in step with the full-menu breakpoint in style.css
+  var NAV_FULL = 1250; // keep in step with the full-menu breakpoint in style.css
 
   function initNav() {
     var nav = $('.nav');
@@ -350,44 +350,142 @@
   }
 
   /* ---------------------------------------------------- Hero background video */
-  function initHeroVideo() {
-    var vid = $('#hero-video');
-    var btn = $('#hero-video-toggle');
-    if (!vid) { if (btn) btn.style.display = 'none'; return; }
+  /* Home hero: a slideshow of World Lupus Day photos. Photo 1 loads with the
+     page; each later photo loads just before it is shown. Pauses when the
+     visitor presses pause, when the hero scrolls out of view and when the tab
+     is hidden. With reduced motion it holds still and only changes on request. */
+  function initHeroSlides() {
+    var box = $('#hero-slides');
+    var btn = $('#hero-slides-toggle');
+    var dotsBox = $('.hs-dots');
+    if (!box) { if (btn) btn.style.display = 'none'; return; }
+    var slides = $$('.hs-slide', box), dots = $$('.hs-dot'), DUR = 6500;
+    var idx = 0, timer = null, started = 0, left = DUR;
+    var userPaused = !!reduceMotion, offscreen = false, hiddenTab = false;
+    if (slides.length < 2) { if (btn) btn.style.display = 'none'; if (dotsBox) dotsBox.style.display = 'none'; return; }
+    if (dotsBox) dotsBox.style.setProperty('--hs-dur', DUR + 'ms');
 
-    // Respect a reduced-motion preference: hold on the poster frame instead.
-    if (reduceMotion) {
-      vid.removeAttribute('autoplay');
-      vid.pause();
-      if (btn) { btn.setAttribute('aria-pressed', 'true'); btn.setAttribute('aria-label', 'Play background video'); }
+    function load(i) {
+      var img = $('img', slides[i]);
+      if (img && img.getAttribute('data-src')) { img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); }
     }
-
-    // Save data and battery: stop the loop whenever the hero is off screen.
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (btn && btn.getAttribute('aria-pressed') === 'true') return; // user paused it
-          if (e.isIntersecting) { var p = vid.play(); if (p && p.catch) p.catch(function () {}); }
-          else vid.pause();
-        });
-      }, { threshold: 0.05 });
-      io.observe(vid);
+    function running() { return !userPaused && !offscreen && !hiddenTab; }
+    function schedule() {
+      clearTimeout(timer);
+      box.classList.toggle('is-paused', !running());
+      if (dotsBox) dotsBox.classList.toggle('is-paused', !running());
+      if (running()) { started = Date.now(); timer = setTimeout(function () { show(idx + 1); }, left); }
     }
-
-    if (!btn) return;
-    btn.addEventListener('click', function () {
-      var paused = btn.getAttribute('aria-pressed') === 'true';
-      if (paused) {
-        var p = vid.play(); if (p && p.catch) p.catch(function () {});
-        btn.setAttribute('aria-pressed', 'false');
-        btn.setAttribute('aria-label', 'Pause background video');
-      } else {
-        vid.pause();
-        btn.setAttribute('aria-pressed', 'true');
-        btn.setAttribute('aria-label', 'Play background video');
+    function hold() {            // stop the clock, remembering how long this photo has left
+      if (timer) { clearTimeout(timer); timer = null; left = Math.max(400, left - (Date.now() - started)); }
+      schedule();
+    }
+    function show(i) {
+      var prev = slides[idx];
+      prev.classList.remove('is-active'); prev.classList.add('is-leaving');
+      setTimeout(function () { prev.classList.remove('is-leaving'); }, 1700);
+      if (dots[idx]) { dots[idx].classList.remove('is-active'); dots[idx].removeAttribute('aria-current'); }
+      idx = (i + slides.length) % slides.length;
+      load(idx); load((idx + 1) % slides.length);
+      var s = slides[idx];
+      s.classList.remove('is-leaving');
+      var img = $('img', s); img.style.animation = 'none'; void img.offsetWidth; img.style.animation = '';
+      s.classList.add('is-active');
+      if (dots[idx]) {
+        var bar = $('i', dots[idx]); dots[idx].classList.remove('is-active'); void bar.offsetWidth;
+        dots[idx].classList.add('is-active'); dots[idx].setAttribute('aria-current', 'true');
       }
+      left = DUR;
+      schedule();
+    }
+
+    load(1);
+    dots.forEach(function (d, i) { d.addEventListener('click', function () { if (i !== idx) show(i); }); });
+    if (btn) {
+      if (userPaused) { btn.setAttribute('aria-pressed', 'true'); btn.setAttribute('aria-label', 'Play the photo slideshow'); }
+      btn.addEventListener('click', function () {
+        userPaused = !userPaused;
+        btn.setAttribute('aria-pressed', String(userPaused));
+        btn.setAttribute('aria-label', userPaused ? 'Play the photo slideshow' : 'Pause the photo slideshow');
+        if (userPaused) hold(); else schedule();
+      });
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        offscreen = !entries[0].isIntersecting;
+        if (offscreen) hold(); else schedule();
+      }, { threshold: 0.05 }).observe(box);
+    }
+    document.addEventListener('visibilitychange', function () {
+      hiddenTab = document.hidden;
+      if (hiddenTab) hold(); else schedule();
+    });
+    schedule();
+  }
+
+  /* ------------------------------------------------------ Volunteer form */
+  /* "Volunteer with us" opens a short form. It is sent from the volunteer's own
+     WhatsApp or email app with everything filled in, so nothing is stored here.
+     Without script the button still calls LFA. */
+  var VOL_WHATSAPP = '254142851978', VOL_EMAIL = 'info@lupusfa.org';
+  function initVolunteer() {
+    var dlg = $('#volunteer-dialog'), form = $('#vol-form');
+    if (!dlg || !form) return;
+    var done = $('#vol-done'), lastFocus = null;
+    function open(trigger) {
+      lastFocus = trigger || document.activeElement;
+      form.hidden = false; done.hidden = true;
+      if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+      setTimeout(function () { $('#vol-name').focus(); }, 30);
+    }
+    function close() {
+      if (dlg.close) dlg.close(); else dlg.removeAttribute('open');
+    }
+    dlg.addEventListener('close', function () { if (lastFocus && lastFocus.focus) lastFocus.focus(); });
+    $$('[data-volunteer-open]').forEach(function (b) {
+      b.addEventListener('click', function (e) { e.preventDefault(); open(b); });
+    });
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg || e.target.closest('[data-vol-close]')) close();   // backdrop or close button
+    });
+    function fieldError(input, msg) {
+      var err = $('.field-err', input.closest('.field'));
+      input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      if (err) { err.textContent = msg || ''; err.classList.toggle('is-on', !!msg); }
+    }
+    $$('input, textarea', form).forEach(function (f) {
+      f.addEventListener('input', function () { if (f.getAttribute('aria-invalid') === 'true') fieldError(f, ''); });
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var via = (e.submitter && e.submitter.value) || 'whatsapp';
+      var name = $('#vol-name').value.trim(), phone = $('#vol-phone').value.trim();
+      var email = $('#vol-email').value.trim(), offer = $('#vol-offer').value.trim();
+      var bad = null;
+      if (!name) { fieldError($('#vol-name'), 'Please tell us your name.'); bad = bad || $('#vol-name'); }
+      if (email && !$('#vol-email').checkValidity()) { fieldError($('#vol-email'), 'Please check your email address.'); bad = bad || $('#vol-email'); }
+      if (!offer) { fieldError($('#vol-offer'), 'Please tell us what you would like to contribute.'); bad = bad || $('#vol-offer'); }
+      if (bad) { bad.focus(); return; }
+      var text = ['Volunteer offer from the LFA website', '', 'Name: ' + name]
+        .concat(phone ? ['Phone: ' + phone] : [], email ? ['Email: ' + email] : [],
+          ['', 'What I would like to contribute (skills, experience, networks or time):', offer]).join('\n');
+      var url = via === 'email'
+        ? 'mailto:' + VOL_EMAIL + '?subject=' + encodeURIComponent('Volunteer offer from ' + name) + '&body=' + encodeURIComponent(text)
+        : 'https://wa.me/' + VOL_WHATSAPP + '?text=' + encodeURIComponent(text);
+      if (via === 'email') window.location.href = url;
+      else window.open(url, '_blank', 'noopener');
+      form.reset();
+      form.hidden = true; done.hidden = false;
+      var first = name.split(/\s+/)[0];
+      done.innerHTML = '<p class="eyebrow">Almost there</p><h2 id="vol-done-title">Thank you, ' + esc(first) + '</h2>' +
+        '<p>Your message to LFA is ready in ' + (via === 'email' ? 'your email app' : 'WhatsApp') + '. Press send there and our team will get back to you.</p>' +
+        '<div class="btn-row"><a class="btn ' + (via === 'email' ? 'btn--primary' : 'btn--wa') + '" href="' + esc(url) + '"' + (via === 'email' ? '' : ' target="_blank" rel="noopener"') + '>' +
+        (via === 'email' ? 'Open the email again' : 'Open WhatsApp again') + '</a>' +
+        '<button class="btn btn--ghost" type="button" data-vol-close>Close</button></div>';
+      done.focus();
     });
   }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
   /* -------------------------------------------------------- Floating CTA */
   // Donate floats on screen on every page from the first screen, except where
@@ -587,7 +685,8 @@
     initFlips();
     initSymptomTool();
     initLightbox();
-    initHeroVideo();
+    initHeroSlides();
+    initVolunteer();
     initFilters();
     initShare();
     initFloatGive();

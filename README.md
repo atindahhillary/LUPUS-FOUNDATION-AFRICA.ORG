@@ -157,13 +157,13 @@ Each entry in the `KB` array is `{ id, k, a, f, cta }`. `k` is the keyword strin
 - **Personal stories** are published with the consent of the person who shared them, and the site says so. Remove any story on request.
 - **Photography** from World Lupus Day 2026 is by Raymond Kiunga and is credited in the footer and on the gallery.
 - **Photos are sized to their frames**, so the browser never has to crop them. Event photos are the full 3:2 camera frame at 1024 x 683 and sit in 3:2 frames. Story portraits and tall frames are 4:5 (760 x 950), team avatars 1:1 (360 x 360) and shop images 4:5. A landscape shot used in a tall or square frame gets its own crop, named `-tall` or `-sq`. All of them are retouched once from the original downloads (light denoise, shadow lift, clarity, gentle vibrance, sharpening) by `.work/render_all.py` using `.work/retouch.py`. When you add a photo, export it at the frame's ratio and set its real `width` and `height` on the `<img>`. The build adds a content hash to image and video URLs, so a replaced photo shows up straight away.
-- **The hero video** (`assets/video/lfa-hero.mp4`) was built from the event photographs. `.work/makevideo.sh` regenerates the master (`SRC=retouched bash makevideo.sh` uses the retouched frames); the repo ships a 1280x720 web encode. It is muted, loops, pauses when scrolled out of view, honours `prefers-reduced-motion`, and has a visible pause control.
+- **The home page slideshow** shows ten World Lupus Day photographs behind the hero. Each photo fades in while it slowly zooms and drifts, in a different direction each time, with progress bars and a pause control. Photos load one step ahead of when they are shown, and the slideshow pauses when scrolled out of view or when the tab is hidden. To change the photos, edit the `hs-slide` figures at the top of `src/pages/index.html` (the first uses `src`, the rest `data-src`). With `prefers-reduced-motion` it holds still.
 
 ## Accessibility and performance
 
 - Skip link, landmarks, visible focus rings, and labelled controls throughout
 - Keyboard support for the menu, accordions, flip cards and gallery lightbox (arrow keys and Escape)
-- `prefers-reduced-motion` respected for animation, scroll and the hero video
+- `prefers-reduced-motion` respected for animation, scroll and the home slideshow
 - Scroll reveals fall back to showing all content if the observer never fires, and `<noscript>` reveals everything without JavaScript
 - Images are lazy-loaded below the fold with intrinsic dimensions set to avoid layout shift
 

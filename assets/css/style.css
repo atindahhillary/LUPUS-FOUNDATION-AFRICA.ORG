@@ -157,9 +157,6 @@ p{margin:0 0 1.15em}
 .topbar a:hover{color:var(--purple-500);text-decoration:underline}
 .topbar-contact{display:flex;gap:1.4rem;flex-wrap:wrap}
 .topbar-social{display:flex;gap:.9rem;align-items:center}
-.topbar-contact-link{display:none}
-.topbar a.topbar-contact-link{font-weight:600}
-@media(min-width:1190px){.topbar-contact-link{display:inline}}
 .topbar-social a{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;transition:background .2s}
 .topbar-social a:hover{background:rgba(255,255,255,.7)}
 .topbar-social svg{width:15px;height:15px;fill:currentColor}
@@ -176,14 +173,14 @@ p{margin:0 0 1.15em}
 .brand-text span{font-size:.665rem;letter-spacing:.17em;text-transform:uppercase;color:var(--purple-500);font-weight:600}
 .menu{display:none}
 /* below the full-menu breakpoint the empty <nav> wrapper would still take a flex gap */
-@media(max-width:1189px){.nav-inner>nav{display:none}}
-@media(min-width:1190px){
-  .menu{display:flex;align-items:center;gap:.3rem;list-style:none;margin:0;padding:0}
+@media(max-width:1249.98px){.nav-inner>nav{display:none}}
+@media(min-width:1250px){
+  .menu{display:flex;align-items:center;gap:.25rem;list-style:none;margin:0;padding:0}
   .menu>li{position:relative}
-  .menu>li>a{display:flex;align-items:center;gap:.28rem;padding:.6rem .8rem;border-radius:var(--r-sm);font-size:var(--fs-sm);font-weight:500;color:var(--ink-soft);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap}
+  .menu>li>a{display:flex;align-items:center;gap:.28rem;padding:.6rem .7rem;border-radius:var(--r-sm);font-size:var(--fs-sm);font-weight:500;color:var(--ink-soft);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap}
   .menu>li>a:hover,.menu>li.is-open>a{color:var(--purple-700);background:var(--lilac-50)}
   .menu>li[aria-current]>a{color:var(--purple-700);font-weight:600}
-  .menu>li[aria-current]>a::after{content:"";position:absolute;left:.8rem;right:.8rem;bottom:.22rem;height:2px;background:var(--gold);border-radius:2px}
+  .menu>li[aria-current]>a::after{content:"";position:absolute;left:.7rem;right:.7rem;bottom:.22rem;height:2px;background:var(--gold);border-radius:2px}
   .caret{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.2;transition:transform .25s var(--ease)}
   .menu>li.is-open .caret{transform:rotate(180deg)}
   .submenu{position:absolute;top:calc(100% + 6px);left:-.4rem;min-width:265px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-lg);padding:.5rem;list-style:none;margin:0;
@@ -193,15 +190,15 @@ p{margin:0 0 1.15em}
   .submenu a:hover{background:var(--lilac-50);color:var(--purple-700)}
   .submenu a small{display:block;font-size:var(--fs-xs);color:var(--muted);margin-top:.12rem;line-height:1.4}
 }
-/* Measured with the 84px logo and the five-item menu: the full menu needs a 1144px window, adding Join us needs 1238px.
+/* Measured with the 84px logo and six menu items (Contact us back): the full menu needs a 1214px window, adding Join us needs 1307px.
    Breakpoints sit just above those, so nothing is ever pushed off screen. */
 .nav-cta{display:none;gap:.4rem;flex:none}
 .nav-cta .btn{padding:.62rem 1rem}
 @media(min-width:600px){.nav-cta{display:flex}}
 .nav-cta .nav-join{display:none}
-@media(min-width:1270px){.nav-cta .nav-join{display:inline-flex}}
+@media(min-width:1340px){.nav-cta .nav-join{display:inline-flex}}
 .burger{display:grid;place-items:center;width:46px;height:46px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--paper);cursor:pointer;flex:none}
-@media(min-width:1190px){.burger{display:none}}
+@media(min-width:1250px){.burger{display:none}}
 .burger span{display:block;width:20px;height:2px;background:var(--purple-900);border-radius:2px;position:relative;transition:.3s var(--ease)}
 .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:20px;height:2px;background:var(--purple-900);border-radius:2px;transition:.3s var(--ease)}
 .burger span::before{top:-6px}.burger span::after{top:6px}
@@ -212,7 +209,7 @@ p{margin:0 0 1.15em}
 .drawer{position:fixed;inset:0;z-index:99;background:var(--cream);padding:calc(var(--nav-h) + 1.5rem) 1.25rem 2.5rem;overflow-y:auto;
   transform:translateX(100%);transition:transform .38s var(--ease);visibility:hidden}
 .drawer.is-open{transform:translateX(0);visibility:visible}
-@media(min-width:1190px){.drawer{display:none}}
+@media(min-width:1250px){.drawer{display:none}}
 .drawer ul{list-style:none;margin:0;padding:0}
 .drawer>ul>li{border-bottom:1px solid var(--line-soft)}
 .drawer>ul>li>a,.drawer-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;padding:1.05rem .35rem;font-family:var(--display);font-size:var(--fs-lead);font-weight:600;color:var(--purple-900);text-decoration:none;background:none;border:0;cursor:pointer;text-align:left}
@@ -226,7 +223,37 @@ p{margin:0 0 1.15em}
 /* ---------- Hero ---------- */
 .hero{position:relative;background:var(--cream);color:var(--ink);overflow:hidden;isolation:isolate}
 .hero-media{position:absolute;inset:0 0 2px 0;z-index:-2;background:var(--lilac-100)}
-.hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 38%}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 38%}
+/* Photo slideshow: each photo fades in while it slowly zooms and drifts (Ken Burns);
+   the direction changes from photo to photo so the motion never feels mechanical */
+.hero-slides .hs-slide{position:absolute;inset:0;margin:0;opacity:0;overflow:hidden;transition:opacity 1.6s ease}
+.hero-slides .hs-slide.is-active{opacity:1;z-index:1}
+.hero-slides .hs-slide img{transform-origin:center;will-change:transform}
+.hs-slide.is-active img,.hs-slide.is-leaving img{animation:kb-1 8.4s linear both}
+.hs-slide[data-kb="2"].is-active img,.hs-slide[data-kb="2"].is-leaving img{animation-name:kb-2}
+.hs-slide[data-kb="3"].is-active img,.hs-slide[data-kb="3"].is-leaving img{animation-name:kb-3}
+.hs-slide[data-kb="4"].is-active img,.hs-slide[data-kb="4"].is-leaving img{animation-name:kb-4}
+@keyframes kb-1{from{transform:scale(1.14) translate(-1.8%,1%)}to{transform:scale(1.03) translate(1.2%,-.8%)}}
+@keyframes kb-2{from{transform:scale(1.03) translate(1.4%,.6%)}to{transform:scale(1.15) translate(-1.6%,-1.2%)}}
+@keyframes kb-3{from{transform:scale(1.13) translate(1.8%,-1%)}to{transform:scale(1.03) translate(-1%,1%)}}
+@keyframes kb-4{from{transform:scale(1.04) translate(-1.2%,-.8%)}to{transform:scale(1.15) translate(1.4%,1.2%)}}
+.hero-slides.is-paused img{animation-play-state:paused!important}
+/* progress bars: which photo is showing, and how long until the next */
+.hs-dots{position:absolute;top:1.25rem;right:4.1rem;z-index:3;display:flex;gap:.3rem;align-items:center;height:38px}
+.hs-dot{width:22px;height:22px;padding:0;border:0;background:none;cursor:pointer;display:grid;align-items:center}
+.hs-dot i{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.75);box-shadow:0 0 0 1px rgba(52,32,95,.16);position:relative;overflow:hidden}
+.hs-dot i::after{content:"";position:absolute;inset:0;background:var(--purple);transform:scaleX(0);transform-origin:left}
+.hs-dot.is-active i::after{animation:hs-fill var(--hs-dur,6.5s) linear forwards}
+.hs-dot:hover i{background:#fff}
+.hs-dot:focus-visible{outline:2px solid var(--purple-500);outline-offset:2px;border-radius:4px}
+.hs-dots.is-paused .hs-dot.is-active i::after{animation-play-state:paused}
+@keyframes hs-fill{to{transform:scaleX(1)}}
+@media(max-width:700px){.hs-dots{display:none}}
+@media (prefers-reduced-motion:reduce){
+  .hs-slide.is-active img,.hs-slide.is-leaving img{animation:none}
+  .hero-slides .hs-slide{transition:opacity .4s ease}
+  .hs-dot.is-active i::after{animation:none;transform:scaleX(1)}
+}
 /* Light wash: the footage stays visible on the right, the copy side stays calm. */
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;
   background:
@@ -501,6 +528,21 @@ p{margin:0 0 1.15em}
 .form-row{display:grid;gap:1.15rem;grid-template-columns:1fr}
 @media(min-width:640px){.form-row{grid-template-columns:1fr 1fr}}
 .form-note{font-size:var(--fs-xs);color:var(--muted)}
+/* Volunteer form dialog (Get Involved) */
+.vol-dialog{border:0;border-radius:var(--r-lg);padding:0;width:min(620px,calc(100% - 1.5rem));max-height:calc(100dvh - 1.5rem);overflow:auto;background:var(--paper);color:var(--ink);box-shadow:var(--shadow-lg)}
+.vol-dialog::backdrop{background:rgba(20,12,40,.55);backdrop-filter:blur(4px)}
+.vol-dialog[open]{animation:vol-in .28s var(--ease)}
+@keyframes vol-in{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+.vol-dialog .form,.vol-done{padding:clamp(1.4rem,4vw,2.2rem)}
+.vol-dialog h2{font-size:var(--fs-h3);margin:0 2.6rem .5rem 0}
+.vol-intro{color:var(--ink-soft);font-size:var(--fs-sm);margin:0}
+.vol-dialog .btn-row{margin:0}
+.vol-dialog .form-note{margin:0}
+.vol-close{position:absolute;top:.9rem;right:.9rem;z-index:1;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--purple-900);display:grid;place-items:center;cursor:pointer}
+.vol-close:hover{background:var(--purple);border-color:var(--purple);color:#fff}
+.vol-close svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.vol-done h2{margin-top:0}
+@media(min-width:560px){.vol-dialog .form-row{grid-template-columns:1fr 1fr}}
 .form-status{padding:1rem 1.2rem;border-radius:var(--r);font-size:var(--fs-sm);display:none}
 .form-status.is-on{display:block;animation:fade-up .4s var(--ease)}
 .form-status--ok{background:#E9F5F2;border:1px solid #BFE0D9;color:#1F5C55}
@@ -647,7 +689,7 @@ p{margin:0 0 1.15em}
 .footer-bottom{padding-bottom:9rem}
 /* Add-to-cart messages sit above the floating buttons on phones */
 @media(max-width:620px){.shop-toast{bottom:5rem}}
-@media(max-width:1189px){.float-stack{right:.9rem;bottom:.9rem}}
+@media(max-width:1249.98px){.float-stack{right:.9rem;bottom:.9rem}}
 
 /* ---------- Reveal ---------- */
 [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}

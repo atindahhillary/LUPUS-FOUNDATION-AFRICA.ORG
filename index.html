@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=02e6491743">
+<link rel="stylesheet" href="assets/css/style.css?v=3279b08699">
 <noscript><style>
   [data-reveal]{opacity:1!important;transform:none!important}
   .acc-panel{max-height:none!important}
@@ -71,8 +71,6 @@
       <a href="mailto:info@lupusfa.org">info@lupusfa.org</a>
       <span class="sep" aria-hidden="true">&middot;</span>
       <span>Nairobi, Kenya</span>
-      <span class="sep topbar-contact-link" aria-hidden="true">&middot;</span>
-      <a class="topbar-contact-link" href="contact.html">Contact us</a>
     </div>
     <div class="topbar-social">
       <span>Follow</span>
@@ -137,6 +135,7 @@
             <li><a href="resources.html">Resource Centre<small>Guides, tools and downloads in one place</small></a></li>
           </ul>
         </li>
+        <li data-nav="contact"><a href="contact.html">Contact us</a></li>
       </ul>
     </nav>
 
@@ -204,15 +203,31 @@
 
 <main id="main">
 <section class="hero">
-  <div class="hero-media">
-    <video id="hero-video" autoplay muted loop playsinline preload="metadata"
-           poster="assets/img/hero-poster.jpg?v=90de885bec"
-           aria-label="Footage from World Lupus Day 2026 in Nairobi: the LFA community walking, drumming and gathering together">
-      <source src="assets/video/lfa-hero.mp4?v=0d898bddd7" type="video/mp4">
-      <img src="assets/img/hero-wld.jpg?v=4ecc0ec72a" alt="Members of the Lupus Foundation of Africa community marching together at World Lupus Day 2026 in Nairobi" width="1024" height="683">
-    </video>
+  <div class="hero-media hero-slides" id="hero-slides" role="img" aria-label="Photographs from World Lupus Day 2026 in Nairobi: the LFA community walking, drumming and gathering together">
+    <figure class="hs-slide is-active" data-kb="1"><img src="assets/img/hero-wld.jpg?v=4ecc0ec72a" alt="" width="1024" height="683" fetchpriority="high" style="object-position:center 38%"></figure>
+    <figure class="hs-slide" data-kb="2"><img data-src="assets/img/f-walk-street.jpg?v=9333c0871e" alt="" width="1024" height="683" style="object-position:center 40%"></figure>
+    <figure class="hs-slide" data-kb="3"><img data-src="assets/img/g-21.jpg?v=f1b5955053" alt="" width="1024" height="683" style="object-position:center 35%"></figure>
+    <figure class="hs-slide" data-kb="4"><img data-src="assets/img/f-band-drums.jpg?v=1f53556fdb" alt="" width="1024" height="683" style="object-position:center 40%"></figure>
+    <figure class="hs-slide" data-kb="1"><img data-src="assets/img/g-10.jpg?v=245c6d0181" alt="" width="1024" height="683" style="object-position:center 35%"></figure>
+    <figure class="hs-slide" data-kb="2"><img data-src="assets/img/f-support-group.jpg?v=deabc1b909" alt="" width="1024" height="683" style="object-position:center 45%"></figure>
+    <figure class="hs-slide" data-kb="3"><img data-src="assets/img/g-24.jpg?v=44b3a26588" alt="" width="1024" height="683" style="object-position:center 35%"></figure>
+    <figure class="hs-slide" data-kb="4"><img data-src="assets/img/g-47.jpg?v=2e26958919" alt="" width="1024" height="683" style="object-position:center 45%"></figure>
+    <figure class="hs-slide" data-kb="1"><img data-src="assets/img/community-group.jpg?v=a07ddb2a07" alt="" width="1024" height="683" style="object-position:center 55%"></figure>
+    <figure class="hs-slide" data-kb="2"><img data-src="assets/img/g-27.jpg?v=56482da674" alt="" width="1024" height="683" style="object-position:center 40%"></figure>
   </div>
-  <button class="hero-vid-toggle" id="hero-video-toggle" type="button" aria-pressed="false" aria-label="Pause background video">
+  <div class="hs-dots" role="group" aria-label="Background photos">
+    <button class="hs-dot is-active" type="button" aria-label="Show photo 1 of 10" aria-current="true"><i></i></button>
+    <button class="hs-dot" type="button" aria-label="Show photo 2 of 10"><i></i></button>
+    <button class="hs-dot" type="button" aria-label="Show photo 3 of 10"><i></i></button>
+    <button class="hs-dot" type="button" aria-label="Show photo 4 of 10"><i></i></button>
+    <button class="hs-dot" type="button" aria-label="Show photo 5 of 10"><i></i></button>
+    <button class="hs-dot" type="button" aria-label="Show photo 6 of 10"><i></i></button>
+    <button class="hs-dot" type="button" aria-label="Show photo 7 of 10"><i></i></button>
+    <button class="hs-dot" type="button" aria-label="Show photo 8 of 10"><i></i></button>
+    <button class="hs-dot" type="button" aria-label="Show photo 9 of 10"><i></i></button>
+    <button class="hs-dot" type="button" aria-label="Show photo 10 of 10"><i></i></button>
+  </div>
+  <button class="hero-vid-toggle" id="hero-slides-toggle" type="button" aria-pressed="false" aria-label="Pause the photo slideshow">
     <svg class="ico-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h3v14H8zM13 5h3v14h-3z"/></svg>
     <svg class="ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
   </button>
@@ -714,7 +729,7 @@
   <button type="button" data-cart-open>View cart</button>
 </div>
 
-<script src="assets/js/site.js?v=0c49d232b4" defer></script>
+<script src="assets/js/site.js?v=456dc674bb" defer></script>
 <script src="assets/js/chatbot.js?v=34871f6543" defer></script>
 <script src="assets/js/shop.js?v=9701476a45" defer></script>
 </body>

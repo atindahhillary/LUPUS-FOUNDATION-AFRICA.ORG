@@ -45,7 +45,7 @@ function parsePage(raw, file) {
  * when the file does.
  */
 function fingerprint(html) {
-  return html.replace(/(href|src|poster|data-full)="(assets\/(?:css|js|img|video)\/[^"?]+\.(?:css|js|jpg|png|mp4))"/g, (m, attr, path) => {
+  return html.replace(/(href|src|data-src|poster|data-full)="(assets\/(?:css|js|img|video)\/[^"?]+\.(?:css|js|jpg|png|mp4))"/g, (m, attr, path) => {
     const hash = createHash('sha1').update(readFileSync(join(root, path))).digest('hex').slice(0, 10);
     return `${attr}="${path}?v=${hash}"`;
   });

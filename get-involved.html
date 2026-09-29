@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=02e6491743">
+<link rel="stylesheet" href="assets/css/style.css?v=3279b08699">
 <noscript><style>
   [data-reveal]{opacity:1!important;transform:none!important}
   .acc-panel{max-height:none!important}
@@ -71,8 +71,6 @@
       <a href="mailto:info@lupusfa.org">info@lupusfa.org</a>
       <span class="sep" aria-hidden="true">&middot;</span>
       <span>Nairobi, Kenya</span>
-      <span class="sep topbar-contact-link" aria-hidden="true">&middot;</span>
-      <a class="topbar-contact-link" href="contact.html">Contact us</a>
     </div>
     <div class="topbar-social">
       <span>Follow</span>
@@ -137,6 +135,7 @@
             <li><a href="resources.html">Resource Centre<small>Guides, tools and downloads in one place</small></a></li>
           </ul>
         </li>
+        <li data-nav="contact"><a href="contact.html">Contact us</a></li>
       </ul>
     </nav>
 
@@ -263,7 +262,7 @@
         <p>Our events, campaigns and chapter activities run on volunteers. We need help with awareness events, community outreach, communications, translation, photography, logistics and administration.</p>
         <p>You do not need to have lupus to volunteer, and you do not need a lot of time.</p>
         <div class="btn-row" style="margin-top:1.2rem">
-          <a class="btn btn--primary" href="tel:+254142851978">Call to volunteer</a>
+          <a class="btn btn--primary" href="tel:+254142851978" data-volunteer-open>Volunteer with us</a>
           <a class="btn btn--ghost" href="contact.html">Send us a message</a>
         </div>
       </article>
@@ -368,6 +367,45 @@
     </div>
   </div>
 </section>
+
+<!-- Volunteer form: sent to LFA from the volunteer's own WhatsApp or email -->
+<dialog class="vol-dialog" id="volunteer-dialog" aria-labelledby="vol-title">
+  <button class="vol-close" type="button" data-vol-close aria-label="Close the volunteer form"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <form class="form" id="vol-form" novalidate>
+    <div>
+      <p class="eyebrow">Volunteer with LFA</p>
+      <h2 id="vol-title">Tell us how you would like to help</h2>
+      <p class="vol-intro">Answer in your own words. Your details go to our team from your own WhatsApp or email, and we will get back to you.</p>
+    </div>
+    <div class="field">
+      <label for="vol-name">Your name <span class="req" aria-hidden="true">*</span></label>
+      <input type="text" id="vol-name" name="name" required autocomplete="name" maxlength="120">
+      <p class="field-err" role="alert"></p>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label for="vol-phone">Phone or WhatsApp</label>
+        <input type="tel" id="vol-phone" name="phone" autocomplete="tel" maxlength="40">
+      </div>
+      <div class="field">
+        <label for="vol-email">Email</label>
+        <input type="email" id="vol-email" name="email" autocomplete="email" maxlength="160">
+        <p class="field-err" role="alert"></p>
+      </div>
+    </div>
+    <div class="field">
+      <label for="vol-offer">What skills, experience, networks, or time would you like to contribute to LFA? <span class="req" aria-hidden="true">*</span></label>
+      <textarea id="vol-offer" name="offer" required maxlength="2000" placeholder="For example: photography at events, two Saturdays a month, contacts at a county hospital, translation into Kiswahili."></textarea>
+      <p class="field-err" role="alert"></p>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn--wa" type="submit" value="whatsapp"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.06L2 22l5.06-1.33A10 10 0 1 0 12 2m0 1.8a8.2 8.2 0 1 1-4.2 15.24l-.3-.18-3 .79.8-2.93-.2-.31A8.2 8.2 0 0 1 12 3.8"/></svg>Send on WhatsApp</button>
+      <button class="btn btn--ghost" type="submit" value="email">Send by email</button>
+    </div>
+    <p class="form-note">Prefer to talk? Call us on <a href="tel:+254142851978">&#43;254 142 851 978</a>.</p>
+  </form>
+  <div class="vol-done" id="vol-done" hidden tabindex="-1"></div>
+</dialog>
 </main>
 <footer class="footer">
   <div class="wrap">
@@ -511,7 +549,7 @@
   <button type="button" data-cart-open>View cart</button>
 </div>
 
-<script src="assets/js/site.js?v=0c49d232b4" defer></script>
+<script src="assets/js/site.js?v=456dc674bb" defer></script>
 <script src="assets/js/chatbot.js?v=34871f6543" defer></script>
 <script src="assets/js/shop.js?v=9701476a45" defer></script>
 </body>
