@@ -562,15 +562,6 @@ p{margin:0 0 1.15em}
 .nl-band .nl-source a{color:#fff}
 @media(max-width:760px){.nl-stats{grid-template-columns:repeat(2,1fr)}.nl-stat:last-child:nth-child(odd){grid-column:1/-1}}
 @media(max-width:560px){.nl-band-head{grid-template-columns:1fr}.nl-band-cover{width:110px}}
-/* page thumbnails */
-.nl-pages{margin-bottom:clamp(2rem,4vw,3rem)}
-.nl-thumbs{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(.7rem,1.6vw,1.1rem)}
-.nl-thumb{display:block;text-decoration:none;color:var(--muted);font-size:var(--fs-xs);text-align:center}
-.nl-thumb img{display:block;width:100%;height:auto;border-radius:6px;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow-sm);transition:transform .25s var(--ease),box-shadow .25s}
-.nl-thumb span{display:block;margin-top:.45rem}
-.nl-thumb:hover img,.nl-thumb:focus-visible img{transform:translateY(-3px);box-shadow:var(--shadow)}
-@media(max-width:760px){.nl-thumbs{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:480px){.nl-thumbs{grid-template-columns:repeat(3,1fr)}}
 /* reader: the newsletter as page images in an overlay */
 .nl-reader{position:fixed;inset:0;z-index:300;background:rgba(20,12,40,.96);display:flex;flex-direction:column}
 .nl-reader[hidden]{display:none}
