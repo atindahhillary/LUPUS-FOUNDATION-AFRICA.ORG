@@ -157,6 +157,9 @@ p{margin:0 0 1.15em}
 .topbar a:hover{color:var(--purple-500);text-decoration:underline}
 .topbar-contact{display:flex;gap:1.4rem;flex-wrap:wrap}
 .topbar-social{display:flex;gap:.9rem;align-items:center}
+.topbar-contact-link{display:none}
+.topbar a.topbar-contact-link{font-weight:600}
+@media(min-width:1190px){.topbar-contact-link{display:inline}}
 .topbar-social a{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;transition:background .2s}
 .topbar-social a:hover{background:rgba(255,255,255,.7)}
 .topbar-social svg{width:15px;height:15px;fill:currentColor}
@@ -175,12 +178,12 @@ p{margin:0 0 1.15em}
 /* below the full-menu breakpoint the empty <nav> wrapper would still take a flex gap */
 @media(max-width:1189px){.nav-inner>nav{display:none}}
 @media(min-width:1190px){
-  .menu{display:flex;align-items:center;gap:.1rem;list-style:none;margin:0;padding:0}
+  .menu{display:flex;align-items:center;gap:.3rem;list-style:none;margin:0;padding:0}
   .menu>li{position:relative}
-  .menu>li>a{display:flex;align-items:center;gap:.28rem;padding:.6rem .38rem;border-radius:var(--r-sm);font-size:var(--fs-sm);font-weight:500;color:var(--ink-soft);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap}
+  .menu>li>a{display:flex;align-items:center;gap:.28rem;padding:.6rem .8rem;border-radius:var(--r-sm);font-size:var(--fs-sm);font-weight:500;color:var(--ink-soft);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap}
   .menu>li>a:hover,.menu>li.is-open>a{color:var(--purple-700);background:var(--lilac-50)}
   .menu>li[aria-current]>a{color:var(--purple-700);font-weight:600}
-  .menu>li[aria-current]>a::after{content:"";position:absolute;left:.5rem;right:.5rem;bottom:.22rem;height:2px;background:var(--gold);border-radius:2px}
+  .menu>li[aria-current]>a::after{content:"";position:absolute;left:.8rem;right:.8rem;bottom:.22rem;height:2px;background:var(--gold);border-radius:2px}
   .caret{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.2;transition:transform .25s var(--ease)}
   .menu>li.is-open .caret{transform:rotate(180deg)}
   .submenu{position:absolute;top:calc(100% + 6px);left:-.4rem;min-width:265px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-lg);padding:.5rem;list-style:none;margin:0;
@@ -190,10 +193,10 @@ p{margin:0 0 1.15em}
   .submenu a:hover{background:var(--lilac-50);color:var(--purple-700)}
   .submenu a small{display:block;font-size:var(--fs-xs);color:var(--muted);margin-top:.12rem;line-height:1.4}
 }
-/* Measured with the 84px logo: the full menu needs a 1163px window, adding Join us needs 1252px.
+/* Measured with the 84px logo and the five-item menu: the full menu needs a 1144px window, adding Join us needs 1238px.
    Breakpoints sit just above those, so nothing is ever pushed off screen. */
 .nav-cta{display:none;gap:.4rem;flex:none}
-.nav-cta .btn{padding:.62rem .85rem}
+.nav-cta .btn{padding:.62rem 1rem}
 @media(min-width:600px){.nav-cta{display:flex}}
 .nav-cta .nav-join{display:none}
 @media(min-width:1270px){.nav-cta .nav-join{display:inline-flex}}
@@ -620,7 +623,12 @@ p{margin:0 0 1.15em}
 
 /* ---------- Floating donate ---------- */
 /* Visible by default in CSS, so it never depends on script timing to appear */
-.float-give{position:fixed;right:1.2rem;bottom:1.2rem;z-index:80;animation:give-in .5s var(--ease)}
+.float-stack{position:fixed;right:1.2rem;bottom:1.2rem;z-index:80;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
+.float-give,.float-shop{position:relative;animation:give-in .5s var(--ease)}
+/* Shop sits above Donate as the quieter of the two, so Donate stays the main action */
+.float-shop{background:var(--paper);color:var(--purple-900);border:1px solid var(--lilac-300);box-shadow:var(--shadow)}
+.float-shop:hover{background:var(--lilac-50);border-color:var(--purple-500);color:var(--purple-900)}
+.float-shop svg{fill:none;stroke:currentColor}
 @keyframes give-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .float-give{box-shadow:0 6px 20px rgba(226,154,49,.45)}
 /* A soft pulse every few seconds so the button is noticed without nagging */
@@ -628,10 +636,10 @@ p{margin:0 0 1.15em}
 @keyframes give-pulse{0%{box-shadow:0 0 0 0 rgba(226,154,49,.55)}25%{box-shadow:0 0 0 14px rgba(226,154,49,0)}100%{box-shadow:0 0 0 0 rgba(226,154,49,0)}}
 @media (prefers-reduced-motion:reduce){.float-give::after{animation:none}}
 /* Keep the last lines of the footer clear of the floating buttons */
-.footer-bottom{padding-bottom:5.5rem}
+.footer-bottom{padding-bottom:9rem}
 /* Add-to-cart messages sit above the floating buttons on phones */
 @media(max-width:620px){.shop-toast{bottom:5rem}}
-@media(max-width:1189px){.float-give{right:.9rem;bottom:.9rem}}
+@media(max-width:1189px){.float-stack{right:.9rem;bottom:.9rem}}
 
 /* ---------- Reveal ---------- */
 [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
@@ -659,7 +667,7 @@ p{margin:0 0 1.15em}
 .badge--teal{background:#E4F1EF;color:var(--teal)}
 
 @media print{
-  .nav,.topbar,.drawer,.float-give,.footer-social,.share,.burger{display:none!important}
+  .nav,.topbar,.drawer,.float-stack,.footer-social,.share,.burger{display:none!important}
   body{background:#fff}
   .hero,.page-head{background:#fff;color:#000}
   .hero h1,.page-head h1{color:#000}
@@ -737,7 +745,7 @@ p{margin:0 0 1.15em}
 .chat-foot{padding:0 1.1rem .85rem;font-size:var(--fs-xs);color:var(--muted);line-height:1.45;background:var(--paper);flex:none}
 
 /* Keep the donate button clear of the chat launcher on small screens */
-@media(max-width:620px){.float-give{bottom:.9rem;right:.9rem}}
+@media(max-width:620px){.float-stack{bottom:.9rem;right:.9rem}}
 
 /* ==========================================================================
    Shop: header cart, product grid, quick view, cart drawer, checkout

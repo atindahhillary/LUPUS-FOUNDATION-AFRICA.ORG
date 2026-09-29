@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=bc6a444eab">
+<link rel="stylesheet" href="assets/css/style.css?v=6db21d62b2">
 <noscript><style>
   [data-reveal]{opacity:1!important;transform:none!important}
   .acc-panel{max-height:none!important}
@@ -71,6 +71,8 @@
       <a href="mailto:info@lupusfa.org">info@lupusfa.org</a>
       <span class="sep" aria-hidden="true">&middot;</span>
       <span>Nairobi, Kenya</span>
+      <span class="sep topbar-contact-link" aria-hidden="true">&middot;</span>
+      <a class="topbar-contact-link" href="contact.html">Contact us</a>
     </div>
     <div class="topbar-social">
       <span>Follow</span>
@@ -127,10 +129,14 @@
             <li><a href="events.html">Events &amp; Campaigns<small>World Lupus Day and more</small></a></li>
           </ul>
         </li>
-        <li data-nav="shop"><a href="shop.html">Shop</a></li>
-        <li data-nav="news"><a href="news.html">News</a></li>
-        <li data-nav="resources"><a href="resources.html">Resources</a></li>
-        <li data-nav="contact"><a href="contact.html">Contact</a></li>
+        <li data-nav="news" class="has-sub">
+          <a href="news.html">News &amp; Resources<svg class="caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4.5 6 8.5 10 4.5"/></svg></a>
+          <ul class="submenu">
+            <li><a href="news.html">News &amp; Insights<small>Articles, stories and campaign updates</small></a></li>
+            <li><a href="news.html#newsletter">Newsletter<small>Our first edition, January to June 2026</small></a></li>
+            <li><a href="resources.html">Resource Centre<small>Guides, tools and downloads in one place</small></a></li>
+          </ul>
+        </li>
       </ul>
     </nav>
 
@@ -140,7 +146,7 @@
         <a class="btn btn--gold btn--sm" href="donate.html">Donate</a>
       </div>
       <button class="cart-btn" type="button" data-cart-open aria-controls="cart-drawer" aria-label="Open cart, empty">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20.5" r="1.4"/><circle cx="18" cy="20.5" r="1.4"/><path d="M1.5 2.5h3l2.4 11.6a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 1.95-1.55L21.3 7H6"/></svg>
         <span class="cart-count" data-cart-count hidden>0</span>
       </button>
       <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span></button>
@@ -708,10 +714,17 @@
   </div>
 </footer>
 
+<div class="float-stack">
+<a class="btn float-shop" href="shop.html">
+  <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></svg>
+  Shop
+  <span class="cart-count" data-cart-count hidden>0</span>
+</a>
 <a class="btn btn--gold float-give" href="donate.html">
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
   Donate
 </a>
+</div>
 
 <!-- Ask LFA: lupus information assistant -->
 <button class="chat-launch" id="chat-launch" type="button" aria-expanded="false" aria-controls="chat">
@@ -769,7 +782,7 @@
   <button type="button" data-cart-open>View cart</button>
 </div>
 
-<script src="assets/js/site.js?v=748815dbcc" defer></script>
+<script src="assets/js/site.js?v=0c49d232b4" defer></script>
 <script src="assets/js/chatbot.js?v=34871f6543" defer></script>
 <script src="assets/js/shop.js?v=55009b5017" defer></script>
 </body>

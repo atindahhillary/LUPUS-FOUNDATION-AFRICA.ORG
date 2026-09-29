@@ -491,9 +491,9 @@
   }
 
   function initFloatGive() {
-    var fab = $('.float-give');
-    if (!fab) return;
-    if (/(donate|checkout)\.html$/.test(location.pathname)) fab.remove();
+    var fab = $('.float-give'), shop = $('.float-shop');
+    if (fab && /(donate|checkout)\.html$/.test(location.pathname)) fab.remove();
+    if (shop && /(shop|checkout)\.html$/.test(location.pathname)) shop.remove();
   }
 
   /* --------------------------------------------------------------- Forms */
