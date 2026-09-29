@@ -292,6 +292,17 @@ p{margin:0 0 1.15em}
 .card-icon{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;background:var(--lilac-100);color:var(--purple-700);margin-bottom:1.1rem}
 .card-icon svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .card-icon--gold{background:var(--gold-soft);color:#A9701A}
+/* Monthly community meeting (Get Involved) */
+.meet{display:flex;gap:clamp(1.2rem,3vw,2.2rem);align-items:center;margin-bottom:clamp(1.25rem,2.4vw,2rem);background:var(--lilac-50);border-color:var(--lilac-300)}
+.meet-date{flex:none;width:112px;border-radius:var(--r);background:var(--paper);border:1px solid var(--lilac-300);text-align:center;overflow:hidden;box-shadow:var(--shadow-sm)}
+.meet-month{display:block;background:var(--purple);color:#fff;font-size:var(--fs-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.4rem 0}
+.meet-day{display:block;font-family:var(--display);font-size:var(--fs-stat);font-weight:800;color:var(--purple-900);line-height:1.1;padding-top:.55rem}
+.meet-dow{display:block;font-size:var(--fs-xs);color:var(--muted);line-height:1.3;padding:.2rem .5rem .7rem}
+.meet-body>*{margin:0 0 .6rem}
+.meet-body h3{margin-bottom:.5rem}
+.meet-next{font-weight:600;color:var(--purple-700)}
+.meet .btn-row{margin:1rem 0 0}
+@media(max-width:599px){.meet{flex-direction:column;align-items:flex-start}}
 .card-num{font-family:var(--display);font-size:var(--fs-stat);font-weight:800;color:var(--lilac-300);line-height:1;margin-bottom:.7rem}
 
 .pillar{font-size:var(--fs-sm);position:relative;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:2rem 1.75rem;overflow:hidden;transition:.3s var(--ease)}

@@ -393,6 +393,33 @@
   // Donate floats on screen on every page from the first screen, except where
   // it would point at the page you are already on (Donate) or pull a buyer
   // away from finishing an order (Checkout).
+  /* ------------------------------------------------------ Monthly meeting */
+  /* The community meets on the last Saturday of every month. Fill in the date
+     of the next one; on the day itself it reads "today". Without script the
+     panel still says "last Saturday of every month". */
+  function initMeeting() {
+    var box = $('#monthly-meeting');
+    if (!box) return;
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    function lastSaturday(y, m) {
+      var d = new Date(y, m + 1, 0);               // last day of month m
+      d.setDate(d.getDate() - ((d.getDay() + 1) % 7)); // step back to Saturday (day 6)
+      return d;
+    }
+    var next = lastSaturday(today.getFullYear(), today.getMonth());
+    if (next < today) next = lastSaturday(today.getFullYear(), today.getMonth() + 1);
+    var isToday = next.getTime() === today.getTime();
+    var fmt = function (o) { return next.toLocaleDateString('en-GB', o); };
+    var set = function (k, v) { var el = $('[data-meet="' + k + '"]', box); if (el) el.textContent = v; };
+    set('month', fmt({ month: 'short' }));
+    set('day', String(next.getDate()));
+    set('dow', isToday ? 'Today' : 'Saturday');
+    var line = $('[data-meet="next"]', box);
+    line.textContent = 'Next meeting: ' + (isToday ? 'today, ' : '') + fmt({ weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    line.hidden = false;
+  }
+
   function initFloatGive() {
     var fab = $('.float-give');
     if (!fab) return;
@@ -494,6 +521,7 @@
     initFilters();
     initShare();
     initFloatGive();
+    initMeeting();
     initForms();
     var y = $('#year'); if (y) y.textContent = new Date().getFullYear();
   }

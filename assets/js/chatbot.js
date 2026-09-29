@@ -109,6 +109,9 @@
       a: '<p>Caring for someone with lupus carries its own weight, and caregivers are often the last to ask for help.</p><p>LFA is forming a <strong>dedicated caregivers support group</strong> so the people holding everyone else up have somewhere of their own. If you are a caregiver, get in touch and we will include you.</p>',
       f: ['support', 'contact'], cta: { l: 'Caregiver support', h: 'get-involved.html#caregivers' } },
 
+    { id: 'meeting', k: 'monthly meeting meetings saturday gathering community next physical person',
+      a: '<p>The LFA community holds a <strong>physical meeting on the last Saturday of every month</strong>, where members meet face to face. Warriors, caregivers, family members and supporters are all welcome, and new faces especially so.</p><p>Call or WhatsApp us on <strong>+254 142 851 978</strong> for the time and venue of the next meeting.</p>',
+      f: ['support', 'membership'], cta: { l: 'See the next meeting date', h: 'get-involved.html#monthly-meeting' } },
     { id: 'support', k: 'support group peer community meet others join connect talk someone lonely isolated near me chapter',
       a: '<p>Peer support is the thing our members say changed the most. In a support group you can describe a symptom without having to justify it.</p><p>We have chapters in Nairobi, Kisumu, Kiambu, Mombasa, Eldoret, Taita Taveta, Siaya, Homa Bay, Kakamega and Kericho, with members in seven countries.</p><p><strong>Call or WhatsApp us and we will connect you to the group nearest you.</strong> There is no form to fill in first.</p>',
       f: ['membership', 'contact'], cta: { l: 'Find a support group', h: 'get-involved.html#support-groups' } },
@@ -205,6 +208,7 @@
     stopping:  ['stop taking','stop my medic','quit my medic','skip my medic','stopped taking'],
     contagious:['catch it','catch lupus','contagious','infectious','spread it'],
     support:   ['support group','near me','meet other','talk to other','someone like me'],
+    meeting:   ['monthly meeting','community meeting','next meeting','when do you meet','when do members meet','when do you hold','last saturday','physical meeting','in person','face to face','meetings','meeting'],
     newly:     ['just been diagnosed','just diagnosed','newly diagnosed','was diagnosed','what do i do now','where do i start'],
     contact:   ['talk to a person','speak to someone','real person','human','phone number','call you','reach you'],
     tool:      ['do i have lupus','think i have lupus','might have lupus','could i have lupus'],
