@@ -628,7 +628,15 @@ p{margin:0 0 1.15em}
 /* Shop sits above Donate as the quieter of the two, so Donate stays the main action */
 .float-shop{background:var(--paper);color:var(--purple-900);border:1px solid var(--lilac-300);box-shadow:var(--shadow)}
 .float-shop:hover{background:var(--lilac-50);border-color:var(--purple-500);color:var(--purple-900)}
-.float-shop svg{fill:none;stroke:currentColor}
+/* Shop icon: a white bag with a gold heart on a purple badge (every purchase supports LFA) */
+.float-shop{padding:.45rem 1.35rem .45rem .45rem}
+.fs-icon{width:32px;height:32px;border-radius:50%;background:var(--purple);display:grid;place-items:center;flex:none;box-shadow:0 3px 8px rgba(52,32,95,.3);transition:transform .3s var(--ease)}
+.fs-icon svg{width:20px;height:20px}
+.fs-bag{fill:#fff}
+.fs-handle{fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round}
+.fs-heart{fill:var(--gold)}
+.float-shop:hover .fs-icon{transform:rotate(-10deg) scale(1.06)}
+@media (prefers-reduced-motion:reduce){.float-shop:hover .fs-icon{transform:none}}
 @keyframes give-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .float-give{box-shadow:0 6px 20px rgba(226,154,49,.45)}
 /* A soft pulse every few seconds so the button is noticed without nagging */
