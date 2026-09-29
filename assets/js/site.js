@@ -359,8 +359,8 @@
     var btn = $('#hero-slides-toggle');
     var dotsBox = $('.hs-dots');
     if (!box) { if (btn) btn.style.display = 'none'; return; }
-    var slides = $$('.hs-slide', box), dots = $$('.hs-dot'), DUR = 6500;
-    var idx = 0, timer = null, started = 0, left = DUR;
+    var slides = $$('.hs-slide', box), dots = $$('.hs-dot'), DUR = 3600;   // time per photo; the crossfade (1.1s) is in style.css
+    var idx = 0, timer = null, started = 0, left = DUR, gen = 0;   // gen: a click or pause cancels any advance already on its way
     var userPaused = !!reduceMotion, offscreen = false, hiddenTab = false;
     if (slides.length < 2) { if (btn) btn.style.display = 'none'; if (dotsBox) dotsBox.style.display = 'none'; return; }
     if (dotsBox) dotsBox.style.setProperty('--hs-dur', DUR + 'ms');
@@ -369,12 +369,23 @@
       var img = $('img', slides[i]);
       if (img && img.getAttribute('data-src')) { img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); }
     }
+    // wait for a photo that is still downloading (slow networks) rather than fade to an empty frame
+    function whenReady(i, cb) {
+      load(i);
+      var img = $('img', slides[i]);
+      if (!img || (img.complete && img.naturalWidth)) return cb();
+      var done = false, go = function () { if (!done) { done = true; cb(); } };
+      img.addEventListener('load', go, { once: true });
+      img.addEventListener('error', go, { once: true });
+      setTimeout(go, 2500);
+    }
     function running() { return !userPaused && !offscreen && !hiddenTab; }
     function schedule() {
       clearTimeout(timer);
+      var my = ++gen;
       box.classList.toggle('is-paused', !running());
       if (dotsBox) dotsBox.classList.toggle('is-paused', !running());
-      if (running()) { started = Date.now(); timer = setTimeout(function () { show(idx + 1); }, left); }
+      if (running()) { started = Date.now(); timer = setTimeout(function () { whenReady((idx + 1) % slides.length, function () { if (my === gen && running()) show(idx + 1); }); }, left); }
     }
     function hold() {            // stop the clock, remembering how long this photo has left
       if (timer) { clearTimeout(timer); timer = null; left = Math.max(400, left - (Date.now() - started)); }
@@ -383,10 +394,10 @@
     function show(i) {
       var prev = slides[idx];
       prev.classList.remove('is-active'); prev.classList.add('is-leaving');
-      setTimeout(function () { prev.classList.remove('is-leaving'); }, 1700);
+      setTimeout(function () { prev.classList.remove('is-leaving'); }, 1200);
       if (dots[idx]) { dots[idx].classList.remove('is-active'); dots[idx].removeAttribute('aria-current'); }
       idx = (i + slides.length) % slides.length;
-      load(idx); load((idx + 1) % slides.length);
+      load(idx); load((idx + 1) % slides.length); load((idx + 2) % slides.length);   // two photos ahead
       var s = slides[idx];
       s.classList.remove('is-leaving');
       var img = $('img', s); img.style.animation = 'none'; void img.offsetWidth; img.style.animation = '';
@@ -399,7 +410,7 @@
       schedule();
     }
 
-    load(1);
+    load(1); load(2);
     dots.forEach(function (d, i) { d.addEventListener('click', function () { if (i !== idx) show(i); }); });
     if (btn) {
       if (userPaused) { btn.setAttribute('aria-pressed', 'true'); btn.setAttribute('aria-label', 'Play the photo slideshow'); }
