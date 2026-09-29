@@ -4,3 +4,6 @@
 node_modules/
 .DS_Store
 Thumbs.db
+
+# Browser automation snapshots
+.playwright-cli/

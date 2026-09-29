@@ -393,6 +393,76 @@
   // Donate floats on screen on every page from the first screen, except where
   // it would point at the page you are already on (Donate) or pull a buyer
   // away from finishing an order (Checkout).
+  /* --------------------------------------------------- Newsletter reader */
+  /* Shows the newsletter as page images in an overlay, so the preview works on
+     every device (many phones download a PDF instead of showing it). Opened by
+     any [data-nl-open="<page>"] link, or by arriving at news.html#read-newsletter
+     (or #read-newsletter-p<page>). Without script those links open the PDF. */
+  function initNewsletterReader() {
+    var rd = $('#nl-reader');
+    if (!rd) return;
+    var box = $('.nl-reader-pages', rd);
+    var pages = $$('[data-nl-page]', rd);
+    var counter = $('[data-nl-current]', rd);
+    var current = 1, lastFocus = null;
+
+    function setCurrent(n) { current = n; counter.textContent = n; }
+    function go(n, smooth) {
+      n = Math.max(1, Math.min(pages.length, n));
+      pages[n - 1].loading = 'eager';
+      box.scrollTo({ top: pages[n - 1].offsetTop - 16, behavior: smooth && !reduceMotion ? 'smooth' : 'auto' });
+      setCurrent(n);
+    }
+    function open(n) {
+      lastFocus = document.activeElement;
+      rd.hidden = false;
+      document.body.style.overflow = 'hidden';
+      go(n, false);
+      $('[data-nl-close]', rd).focus();
+    }
+    function close() {
+      rd.hidden = true;
+      document.body.style.overflow = '';
+      if (location.hash.indexOf('#read-newsletter') === 0) {
+        history.replaceState(null, '', location.pathname + location.search + '#newsletter');
+      }
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    box.addEventListener('scroll', function () {
+      var line = box.scrollTop + box.clientHeight * 0.35, n = 1;
+      pages.forEach(function (p, i) { if (p.offsetTop <= line) n = i + 1; });
+      if (n !== current) setCurrent(n);
+    }, { passive: true });
+    $$('[data-nl-open]').forEach(function (t) {
+      t.addEventListener('click', function (e) {
+        e.preventDefault();
+        open(parseInt(t.getAttribute('data-nl-open'), 10) || 1);
+      });
+    });
+    $('[data-nl-close]', rd).addEventListener('click', close);
+    $('[data-nl-prev]', rd).addEventListener('click', function () { go(current - 1, true); });
+    $('[data-nl-next]', rd).addEventListener('click', function () { go(current + 1, true); });
+    document.addEventListener('keydown', function (e) {
+      if (rd.hidden) return;
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); go(current + 1, true); }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(current - 1, true); }
+      if (e.key === 'Tab') { // keep focus inside the reader
+        var f = $$('button, a[href], [tabindex="0"]', rd);
+        var i = f.indexOf(document.activeElement);
+        e.preventDefault();
+        f[(i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus();
+      }
+    });
+    function fromHash() {
+      var m = /^#read-newsletter(?:-p(\d+))?$/.exec(location.hash);
+      if (m && rd.hidden) open(parseInt(m[1], 10) || 1);
+    }
+    window.addEventListener('hashchange', fromHash);
+    fromHash();
+  }
+
   /* ------------------------------------------------------ Monthly meeting */
   /* The community meets on the last Saturday of every month. Fill in the date
      of the next one; on the day itself it reads "today". Without script the
@@ -522,6 +592,7 @@
     initShare();
     initFloatGive();
     initMeeting();
+    initNewsletterReader();
     initForms();
     var y = $('#year'); if (y) y.textContent = new Date().getFullYear();
   }

@@ -109,6 +109,9 @@
       a: '<p>Caring for someone with lupus carries its own weight, and caregivers are often the last to ask for help.</p><p>LFA is forming a <strong>dedicated caregivers support group</strong> so the people holding everyone else up have somewhere of their own. If you are a caregiver, get in touch and we will include you.</p>',
       f: ['support', 'contact'], cta: { l: 'Caregiver support', h: 'get-involved.html#caregivers' } },
 
+    { id: 'newsletter', k: 'newsletter publication report impact numbers achievements progress edition',
+      a: '<p>Our <strong>first bi-annual newsletter</strong> covers January to June 2026. In those six months we reached <strong>5,000+ people</strong> through awareness activities, grew to <strong>500+ active community members</strong>, reached <strong>20+ warriors with medication support</strong>, established <strong>3 partnerships</strong> and held a national policy engagement with the Social Health Authority.</p><p>It also tells our World Lupus Day story and shares voices from the community.</p>',
+      f: ['events', 'contact'], cta: { l: 'Preview the newsletter', h: 'news.html#read-newsletter' } },
     { id: 'meeting', k: 'monthly meeting meetings saturday gathering community next physical person',
       a: '<p>The LFA community holds a <strong>physical meeting on the last Saturday of every month</strong>, where members meet face to face. Warriors, caregivers, family members and supporters are all welcome, and new faces especially so.</p><p>Call or WhatsApp us on <strong>+254 142 851 978</strong> for the time and venue of the next meeting.</p>',
       f: ['support', 'membership'], cta: { l: 'See the next meeting date', h: 'get-involved.html#monthly-meeting' } },
@@ -208,6 +211,7 @@
     stopping:  ['stop taking','stop my medic','quit my medic','skip my medic','stopped taking'],
     contagious:['catch it','catch lupus','contagious','infectious','spread it'],
     support:   ['support group','near me','meet other','talk to other','someone like me'],
+    newsletter:['newsletter','news letter','annual report','your impact','what have you achieved','in numbers'],
     meeting:   ['monthly meeting','community meeting','next meeting','when do you meet','when do members meet','when do you hold','last saturday','physical meeting','in person','face to face','meetings','meeting'],
     newly:     ['just been diagnosed','just diagnosed','newly diagnosed','was diagnosed','what do i do now','where do i start'],
     contact:   ['talk to a person','speak to someone','real person','human','phone number','call you','reach you'],
