@@ -94,6 +94,8 @@ If a request to that endpoint fails, the form falls back to the email client aut
 
 Edit the `PRODUCTS` array near the top of `shop.js`. Each product has an `id`, `name`, `price` (in KES), `sizes` (or `null`), a main image and a `gallery`. Product photos live in `assets/img/shop/` as 4:5 JPEGs (800 x 1000 for main shots, 640 x 800 for notebook details), matching the 4:5 product frames.
 
+Apparel comes in three colours (`COLOURS`: grey, white, purple), and the T-shirts also come crew neck or V-neck (`NECKS`). A product lists its `colours`, optional `necks` and `views`; each view is a file pattern such as `warrior-tee{n}-{c}`, where `{c}` is the colour and `{n}` is `-v` for the V-neck, so `warrior-tee-v-purple.jpg` is the purple V-neck. Colour and neckline travel with each cart line, into the order LFA receives and onto the receipt. The white, purple and V-neck photos are digital samples made from the grey mockups by `.work/merch.py` (the printed designs are untouched; purple garments show the artwork in white ink), and the shop says so next to the colour picker.
+
 Both T-shirts share one price, `TEE_PRICE` (KES 1,500 each), so changing that single number updates both.
 
 ### Delivery fees

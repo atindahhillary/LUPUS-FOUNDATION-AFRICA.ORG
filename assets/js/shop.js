@@ -36,38 +36,48 @@
   var SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
   var MAX_QTY = 20;
 
+  // Apparel comes in three colours; T-shirts also come crew neck or V-neck.
+  // Images follow one pattern: <base>[-v]-<colour>.jpg (see views below).
+  // The white, purple and V-neck photos are digital samples made from the grey originals.
+  var COLOURS = {
+    grey: { label: 'Grey', hex: '#9C9EA3' },
+    white: { label: 'White', hex: '#F7F6F9' },
+    purple: { label: 'Purple', hex: '#4A2C80' }
+  };
+  var NECKS = { crew: 'Crew neck', v: 'V-neck' };
+
   var PRODUCTS = [
     {
       id: 'warrior-hoodie', name: 'Lupus Warrior Hoodie', cat: 'apparel', price: 2500, sizes: SIZES,
-      img: 'assets/img/shop/warrior-hoodie.jpg',
-      alt: 'Grey hoodie with the purple Lupus Warrior, Stronger Every Day seal on the chest',
-      blurb: 'Grey pullover hoodie with the Lupus Warrior seal on the chest.',
+      colours: ['grey', 'white', 'purple'],
+      views: [{ file: 'warrior-hoodie-{c}', alt: '{C} Lupus Warrior hoodie, front' }],
+      alt: 'Hoodie with the Lupus Warrior, Stronger Every Day seal on the chest',
+      blurb: 'Pullover hoodie with the Lupus Warrior seal on the chest.',
       about: 'For the cold mornings, the long clinic queues and the days you want to be seen. The Lupus Warrior seal says what many of our members feel: stronger every day.',
-      details: ['Lupus Warrior, Stronger Every Day seal in LFA purple', 'Drawstring hood and front pocket', 'Unisex sizing, S to XXL'],
-      gallery: [{ src: 'assets/img/shop/warrior-hoodie.jpg', alt: 'Lupus Warrior hoodie, front' }]
+      details: ['Lupus Warrior, Stronger Every Day seal: LFA purple on grey and white, white on purple', 'Drawstring hood and front pocket', 'Unisex sizing, S to XXL']
     },
     {
       id: 'warrior-tee', name: 'Lupus Warrior T-shirt', cat: 'apparel', price: TEE_PRICE, sizes: SIZES,
-      img: 'assets/img/shop/warrior-tee.jpg',
-      alt: 'Grey T-shirt with the purple Lupus Warrior, Stronger Every Day seal on the front',
-      blurb: 'Grey crew-neck T-shirt with the Lupus Warrior seal on the front.',
+      colours: ['grey', 'white', 'purple'], necks: ['crew', 'v'],
+      views: [{ file: 'warrior-tee{n}-{c}', alt: '{C} {N} Lupus Warrior T-shirt, front' }],
+      alt: 'T-shirt with the Lupus Warrior, Stronger Every Day seal on the front',
+      blurb: 'The Lupus Warrior seal on the front of an everyday T-shirt.',
       about: 'An everyday T-shirt that starts conversations. Wear it to a support group, a clinic visit or a walk, and let it say what is hard to put into words.',
-      details: ['Lupus Warrior, Stronger Every Day seal on the front', 'Grey crew neck', 'Unisex sizing, S to XXL'],
-      gallery: [{ src: 'assets/img/shop/warrior-tee.jpg', alt: 'Lupus Warrior T-shirt, front' }]
+      details: ['Lupus Warrior, Stronger Every Day seal on the front', 'Crew neck or V-neck', 'Unisex sizing, S to XXL']
     },
     {
       id: 'steps-tee', name: 'Steps for Change T-shirt', cat: 'apparel', price: TEE_PRICE, sizes: SIZES,
+      colours: ['grey', 'white', 'purple'], necks: ['crew', 'v'],
       tag: 'World Lupus Day 2026',
-      img: 'assets/img/shop/steps-tee-front.jpg',
-      alt: 'Grey T-shirt printed with footprints and the words Steps for change 2026',
+      views: [
+        { file: 'steps-tee{n}-{c}', alt: '{C} {N} Steps for Change T-shirt, front' },
+        { file: 'steps-tee-back-{c}', alt: '{C} Steps for Change T-shirt, back with the Lupus Warrior seal' },
+        { file: 'steps-tee-worn', alt: 'The grey crew-neck Steps for Change T-shirt, worn' }
+      ],
+      alt: 'T-shirt printed with footprints and the words Steps for change 2026',
       blurb: 'The official World Lupus Day 2026 walk T-shirt, with the Lupus Warrior seal on the back.',
       about: 'The T-shirt hundreds of warriors, caregivers and supporters wore as they walked through Nairobi on 9 May 2026 to make lupus visible.',
-      details: ['Steps for change 2026 footprints on the front, LFA mark on the chest', 'Lupus Warrior seal on the back', 'Grey crew neck, unisex sizing S to XXL'],
-      gallery: [
-        { src: 'assets/img/shop/steps-tee-front.jpg', alt: 'Steps for Change T-shirt, front' },
-        { src: 'assets/img/shop/steps-tee-back.jpg', alt: 'Steps for Change T-shirt, back with the Lupus Warrior seal' },
-        { src: 'assets/img/shop/steps-tee-worn.jpg', alt: 'The Steps for Change T-shirt, worn' }
-      ]
+      details: ['Steps for change 2026 footprints on the front, LFA mark on the chest', 'Lupus Warrior seal on the back', 'Crew neck or V-neck, unisex sizing S to XXL']
     },
     {
       id: 'warrior-notebook', name: 'Lupus Warrior Notebook', cat: 'stationery', price: 1500, sizes: null,
@@ -87,6 +97,20 @@
     }
   ];
 
+  // The photos for a product in a given colour and neck style
+  function look(p, colour, neck) {
+    if (!p.views) return { img: p.img, gallery: p.gallery };
+    var c = p.colours.indexOf(colour) > -1 ? colour : p.colours[0];
+    var n = p.necks ? (p.necks.indexOf(neck) > -1 ? neck : p.necks[0]) : '';
+    var gallery = p.views.map(function (v) {
+      var file = v.file.replace('{c}', c).replace('{n}', n === 'v' ? '-v' : '');
+      var alt = v.alt.replace('{C}', COLOURS[c].label).replace('{N}', n === 'v' ? 'V-neck' : n ? 'crew-neck' : '').replace(/\s+/g, ' ');
+      return { src: 'assets/img/shop/' + file + '.jpg', alt: alt };
+    });
+    return { img: gallery[0].src, gallery: gallery };
+  }
+  PRODUCTS.forEach(function (p) { if (p.views) p.img = look(p).img; });
+
   // fee: 0 = free, null = LFA confirms it with the customer. Set numbers here
   // once LFA has agreed rider and courier rates and totals will include them.
   var DELIVERY = [
@@ -102,7 +126,12 @@
   function byDelivery(id) { for (var i = 0; i < DELIVERY.length; i++) if (DELIVERY[i].id === id) return DELIVERY[i]; return DELIVERY[0]; }
   function money(n) { return 'KES ' + Math.round(n).toLocaleString('en-KE'); }
   function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
-  function keyOf(id, size) { return id + '|' + (size || ''); }
+  function keyOf(l) { return [l.id, l.size || '', l.colour || '', l.neck || ''].join('|'); }
+  // "Size M · Purple · V-neck": the options that tell two lines of the same product apart
+  function optionText(l) {
+    return [l.size ? 'Size ' + l.size : '', l.colour && COLOURS[l.colour] ? COLOURS[l.colour].label : '', l.neck && NECKS[l.neck] ? NECKS[l.neck] : '']
+      .filter(Boolean).join(' \u00b7 ');
+  }
   function read(k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
   function write(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 
@@ -117,23 +146,32 @@
       if (!p) return false;
       if (p.sizes && p.sizes.indexOf(l.size) === -1) return false;
       if (!p.sizes) l.size = '';
+      // carts saved before colours existed were grey crew neck, which is what these defaults give
+      l.colour = p.colours ? (p.colours.indexOf(l.colour) > -1 ? l.colour : p.colours[0]) : '';
+      l.neck = p.necks ? (p.necks.indexOf(l.neck) > -1 ? l.neck : p.necks[0]) : '';
       l.qty = Math.max(1, Math.min(MAX_QTY, parseInt(l.qty, 10) || 1));
       return true;
     });
   }
-  function find(k) { for (var i = 0; i < cart.length; i++) if (keyOf(cart[i].id, cart[i].size) === k) return cart[i]; return null; }
+  function find(k) { for (var i = 0; i < cart.length; i++) if (keyOf(cart[i]) === k) return cart[i]; return null; }
   function count() { return cart.reduce(function (n, l) { return n + l.qty; }, 0); }
   function subtotal() { return cart.reduce(function (n, l) { return n + byId(l.id).price * l.qty; }, 0); }
   function commit() { write(CART_KEY, cart); render(); }
 
-  function add(id, size, qty) {
+  function add(id, size, qty, colour, neck) {
     var p = byId(id);
     if (!p || (p.sizes && !size)) return;
-    var line = find(keyOf(id, size));
+    var item = {
+      id: id, size: size || '',
+      colour: p.colours ? (p.colours.indexOf(colour) > -1 ? colour : p.colours[0]) : '',
+      neck: p.necks ? (p.necks.indexOf(neck) > -1 ? neck : p.necks[0]) : ''
+    };
+    var line = find(keyOf(item));
     if (line) line.qty = Math.min(MAX_QTY, line.qty + qty);
-    else cart.push({ id: id, size: size || '', qty: Math.min(MAX_QTY, qty) });
+    else { item.qty = Math.min(MAX_QTY, qty); cart.push(item); }
     commit();
-    toast(p.name + (size ? ', size ' + size : '') + ' added to your cart');
+    var opts = optionText(item);
+    toast(p.name + (opts ? ' (' + opts + ')' : '') + ' added to your cart');
     $$('.cart-btn').forEach(function (b) { b.classList.remove('is-bumped'); void b.offsetWidth; b.classList.add('is-bumped'); });
   }
   function setQty(k, q) {
@@ -141,7 +179,7 @@
     if (q < 1) return remove(k);
     l.qty = Math.min(MAX_QTY, q); commit();
   }
-  function remove(k) { cart = cart.filter(function (l) { return keyOf(l.id, l.size) !== k; }); commit(); }
+  function remove(k) { cart = cart.filter(function (l) { return keyOf(l) !== k; }); commit(); }
 
   // Keep every open tab in step with the same cart
   window.addEventListener('storage', function (e) {
@@ -178,12 +216,12 @@
     }
     foot.hidden = false;
     body.innerHTML = cart.map(function (l) {
-      var p = byId(l.id), k = keyOf(l.id, l.size);
+      var p = byId(l.id), k = keyOf(l), opts = optionText(l);
       return '<div class="cart-line">' +
-        '<img src="' + p.img + '" alt="" width="72" height="90">' +
+        '<img src="' + look(p, l.colour, l.neck).img + '" alt="" width="72" height="90">' +
         '<div><div class="cart-line-name">' + p.name + '</div>' +
-        '<div class="cart-line-meta">' + (l.size ? 'Size ' + l.size + ' &middot; ' : '') + money(p.price) + ' each</div>' +
-        qtyHtml(k, l.qty, p.name + (l.size ? ' size ' + l.size : '')) +
+        '<div class="cart-line-meta">' + (opts ? esc(opts) + ' &middot; ' : '') + money(p.price) + ' each</div>' +
+        qtyHtml(k, l.qty, p.name + (opts ? ', ' + opts : '')) +
         '<button type="button" class="cart-remove" data-remove="' + k + '">Remove</button></div>' +
         '<div class="cart-line-price">' + money(p.price * l.qty) + '</div></div>';
     }).join('');
@@ -234,7 +272,7 @@
     var grid = $('#shop-grid'); if (!grid) return;
     grid.innerHTML = PRODUCTS.map(function (p) {
       var action = p.sizes
-        ? '<button type="button" class="btn btn--primary btn--sm" data-view="' + p.id + '">Choose size</button>'
+        ? '<button type="button" class="btn btn--primary btn--sm" data-view="' + p.id + '">' + (p.colours ? 'See options' : 'Choose size') + '</button>'
         : '<button type="button" class="btn btn--primary btn--sm" data-add="' + p.id + '">Add to cart</button>';
       return '<article class="product" data-cat="' + p.cat + '">' +
         '<button type="button" class="product-media" data-view="' + p.id + '" aria-label="View details: ' + esc(p.name) + '">' +
@@ -245,6 +283,9 @@
           '<p class="product-cat">' + (p.cat === 'apparel' ? 'Apparel' : 'Stationery') + '</p>' +
           '<h3 class="product-name"><button type="button" class="product-link" data-view="' + p.id + '">' + p.name + '</button></h3>' +
           '<p class="product-desc">' + p.blurb + '</p>' +
+          (p.colours ? '<p class="product-options"><span class="dots" aria-hidden="true">' + p.colours.map(function (c) {
+            return '<i style="background:' + COLOURS[c].hex + '"></i>';
+          }).join('') + '</span>' + p.colours.length + ' colours' + (p.necks ? ' &middot; crew or V-neck' : '') + '</p>' : '') +
           '<div class="product-foot"><span class="price">' + money(p.price) + '</span>' + action + '</div>' +
         '</div></article>';
     }).join('');
@@ -268,17 +309,25 @@
   function quickView(id) {
     var p = byId(id), qv = $('#qv'); if (!p || !qv) return;
     if (!qv.classList.contains('is-open')) lastFocus = document.activeElement;
-    qvState = { id: id, size: '', qty: 1 };
+    qvState = { id: id, size: '', qty: 1, colour: p.colours ? p.colours[0] : '', neck: p.necks ? p.necks[0] : '' };
+    var cur = look(p, qvState.colour, qvState.neck);
+    var colours = p.colours ? '<fieldset class="sizes"><legend>Colour: <span id="qv-colour-name">' + COLOURS[qvState.colour].label + '</span></legend><div class="swatches">' + p.colours.map(function (c) {
+      return '<label class="swatch"><input type="radio" name="qv-colour" value="' + c + '"' + (c === qvState.colour ? ' checked' : '') + '><span><i style="background:' + COLOURS[c].hex + '"></i>' + COLOURS[c].label + '</span></label>';
+    }).join('') + '</div></fieldset>' : '';
+    var necks = p.necks ? '<fieldset class="sizes"><legend>Neckline</legend><div class="sizes-row">' + p.necks.map(function (n) {
+      return '<label class="size"><input type="radio" name="qv-neck" value="' + n + '"' + (n === qvState.neck ? ' checked' : '') + '><span>' + NECKS[n] + '</span></label>';
+    }).join('') + '</div></fieldset>' : '';
+    var sample = p.colours ? '<p class="qv-note">White, purple and V-neck photos are samples. We confirm colours and stock with you when we call about your order.</p>' : '';
     var sizes = p.sizes ? '<fieldset class="sizes"><legend>Size</legend><div class="sizes-row">' + p.sizes.map(function (s) {
       return '<label class="size"><input type="radio" name="qv-size" value="' + s + '"><span>' + s + '</span></label>';
     }).join('') + '</div><p class="field-err" id="qv-size-err" role="alert"></p>' +
       '<p class="qv-note">Unsure of your size? <a href="https://wa.me/' + SHOP.whatsapp + '" target="_blank" rel="noopener">Ask us on WhatsApp</a>.</p></fieldset>' : '';
-    var thumbs = p.gallery.length > 1 ? '<div class="qv-thumbs" role="group" aria-label="Product photos">' + p.gallery.map(function (g, i) {
+    var thumbs = cur.gallery.length > 1 ? '<div class="qv-thumbs" role="group" aria-label="Product photos">' + cur.gallery.map(function (g, i) {
       return '<button type="button" class="qv-thumb" data-thumb="' + i + '" aria-pressed="' + (i === 0) + '" aria-label="Photo ' + (i + 1) + ': ' + esc(g.alt) + '"><img src="' + g.src + '" alt=""></button>';
     }).join('') + '</div>' : '';
 
     $('#qv-content').innerHTML =
-      '<div class="qv-gallery"><div class="qv-main"><img id="qv-img" src="' + p.gallery[0].src + '" alt="' + esc(p.gallery[0].alt) + '"></div>' + thumbs + '</div>' +
+      '<div class="qv-gallery"><div class="qv-main"><img id="qv-img" src="' + cur.gallery[0].src + '" alt="' + esc(cur.gallery[0].alt) + '"></div>' + thumbs + '</div>' +
       '<div class="qv-info">' +
         '<p class="product-cat">' + (p.tag || (p.cat === 'apparel' ? 'Apparel' : 'Stationery')) + '</p>' +
         '<h2 class="qv-title" id="qv-title">' + p.name + '</h2>' +
@@ -287,7 +336,7 @@
         '<ul class="tick-list">' + p.details.map(function (d) {
           return '<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>' + d + '</li>';
         }).join('') + '</ul>' +
-        sizes +
+        colours + necks + sizes + sample +
         '<div class="qv-buy"><div class="qty" role="group" aria-label="Quantity">' +
           '<button type="button" data-qv-step="-1" aria-label="Decrease quantity">&minus;</button>' +
           '<span id="qv-qty">1</span>' +
@@ -296,6 +345,20 @@
         '<p class="qv-note">Every purchase supports the Lupus Foundation of Africa.</p>' +
       '</div>';
 
+    // colour and neckline swap the photos, keeping the photo the visitor was looking at
+    $$('input[name="qv-colour"], input[name="qv-neck"]', qv).forEach(function (r) {
+      r.addEventListener('change', function () {
+        if (r.name === 'qv-colour') { qvState.colour = r.value; $('#qv-colour-name').textContent = COLOURS[r.value].label; }
+        else qvState.neck = r.value;
+        var g = look(p, qvState.colour, qvState.neck).gallery;
+        var active = 0;
+        $$('.qv-thumb', qv).forEach(function (b, i) {
+          if (b.getAttribute('aria-pressed') === 'true') active = i;
+          $('img', b).src = g[i].src; b.setAttribute('aria-label', 'Photo ' + (i + 1) + ': ' + g[i].alt);
+        });
+        var img = $('#qv-img'); img.src = g[active].src; img.alt = g[active].alt;
+      });
+    });
     $$('input[name="qv-size"]', qv).forEach(function (r) {
       r.addEventListener('change', function () {
         qvState.size = r.value;
@@ -326,7 +389,7 @@
       var first = $('input[name="qv-size"]'); if (first) first.focus();
       return;
     }
-    add(p.id, qvState.size, qvState.qty);
+    add(p.id, qvState.size, qvState.qty, qvState.colour, qvState.neck);
     closeQuickView();
   }
 
@@ -395,10 +458,10 @@
     var lines = $('#sum-lines'), rows = $('#sum-rows'); if (!lines) return;
     if (!cart.length) return showEmpty();
     lines.innerHTML = cart.map(function (l) {
-      var p = byId(l.id);
-      return '<div class="sum-line"><img src="' + p.img + '" alt="" width="56" height="70">' +
+      var p = byId(l.id), opts = optionText(l);
+      return '<div class="sum-line"><img src="' + look(p, l.colour, l.neck).img + '" alt="" width="56" height="70">' +
         '<div><div class="cart-line-name">' + p.name + '</div>' +
-        '<div class="cart-line-meta">' + (l.size ? 'Size ' + l.size + ' &middot; ' : '') + 'Qty ' + l.qty + '</div></div>' +
+        '<div class="cart-line-meta">' + (opts ? esc(opts) + ' &middot; ' : '') + 'Qty ' + l.qty + '</div></div>' +
         '<span class="cart-line-price">' + money(p.price * l.qty) + '</span></div>';
     }).join('');
     var d = currentDelivery(), sub = subtotal();
@@ -453,7 +516,8 @@
       placedAt: new Date().toISOString(),
       items: cart.map(function (l) {
         var p = byId(l.id);
-        return { id: p.id, name: p.name, size: l.size, qty: l.qty, price: p.price, total: p.price * l.qty, img: p.img };
+        return { id: p.id, name: p.name, size: l.size, colour: l.colour ? COLOURS[l.colour].label : '', neck: l.neck ? NECKS[l.neck] : '',
+          qty: l.qty, price: p.price, total: p.price * l.qty, img: look(p, l.colour, l.neck).img };
       }),
       subtotal: sub,
       delivery: { id: d.id, label: d.label, fee: d.fee },
@@ -473,7 +537,10 @@
   function orderText(o) {
     var when = new Date(o.placedAt).toLocaleString('en-KE', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
     var L = ['New order from the LFA website', 'Order: ' + o.id, 'Placed: ' + when, '', 'Items:'];
-    o.items.forEach(function (i) { L.push('- ' + i.qty + ' x ' + i.name + (i.size ? ' (size ' + i.size + ')' : '') + ': ' + money(i.total)); });
+    o.items.forEach(function (i) {
+      var opts = [i.size ? 'size ' + i.size : '', i.colour ? String(i.colour).toLowerCase() : '', i.neck ? (i.neck === 'V-neck' ? 'V-neck' : String(i.neck).toLowerCase()) : ''].filter(Boolean).join(', ');
+      L.push('- ' + i.qty + ' x ' + i.name + (opts ? ' (' + opts + ')' : '') + ': ' + money(i.total));
+    });
     L.push('', 'Subtotal: ' + money(o.subtotal));
     L.push('Delivery: ' + o.delivery.label + ' (' + feeLabel(o.delivery) + ')');
     L.push('Total: ' + (o.totalPending ? money(o.total) + ' + delivery' : money(o.total)));
@@ -606,7 +673,7 @@
 
     var items = o.items.map(function (i) {
       return '<div class="sum-line"><img src="' + i.img + '" alt="" width="56" height="70">' +
-        '<div><div class="cart-line-name">' + esc(i.name) + '</div><div class="cart-line-meta">' + (i.size ? 'Size ' + esc(i.size) + ' &middot; ' : '') + 'Qty ' + i.qty + '</div></div>' +
+        '<div><div class="cart-line-name">' + esc(i.name) + '</div><div class="cart-line-meta">' + esc([i.size ? 'Size ' + i.size : '', i.colour, i.neck].filter(Boolean).join(' \u00b7 ')) + (i.size || i.colour ? ' &middot; ' : '') + 'Qty ' + i.qty + '</div></div>' +
         '<span class="cart-line-price">' + money(i.total) + '</span></div>';
     }).join('');
 
@@ -616,7 +683,7 @@
         '<div>' +
           '<h3>How to pay</h3><div class="pay-box">' + payInstructions(o) + '</div>' +
           '<h3>What happens next</h3><ol class="next-steps">' +
-            '<li>We confirm your order, sizes and ' + (o.delivery.id === 'pickup' ? 'a collection time' : 'the delivery fee') + ' with you.</li>' +
+            '<li>We confirm your order, sizes, colours and ' + (o.delivery.id === 'pickup' ? 'a collection time' : 'the delivery fee') + ' with you.</li>' +
             '<li>' + (o.paid ? 'Your payment is already in.' : 'You pay using the details above.') + '</li>' +
             '<li>' + (o.delivery.id === 'pickup' ? 'You collect your order in Nairobi.' : 'We send your order to ' + esc(o.customer.town || 'you') + '.') + '</li>' +
           '</ol>' +
@@ -706,8 +773,8 @@
     }
     else if (t.hasAttribute('data-remove')) remove(t.getAttribute('data-remove'));
     else if (t.hasAttribute('data-thumb')) {
-      var p = byId(qvState.id), i = parseInt(t.getAttribute('data-thumb'), 10), img = $('#qv-img');
-      img.src = p.gallery[i].src; img.alt = p.gallery[i].alt;
+      var g = look(byId(qvState.id), qvState.colour, qvState.neck).gallery, i = parseInt(t.getAttribute('data-thumb'), 10), img = $('#qv-img');
+      img.src = g[i].src; img.alt = g[i].alt;
       $$('.qv-thumb').forEach(function (b) { b.setAttribute('aria-pressed', String(b === t)); });
     }
     else if (t.hasAttribute('data-qv-step')) {
