@@ -565,8 +565,8 @@ p{margin:0 0 1.15em}
 .reg-step{position:relative}
 .reg-num{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--purple);color:#fff;font-weight:800;font-size:var(--fs-base);margin-bottom:1rem}
 .mpesa{max-width:440px;margin:1.1rem 0 1.2rem;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm)}
-.mpesa-head{background:#3DB14A;padding:.85rem 1rem;text-align:center}
-.mpesa-logo{color:#fff;font-weight:800;font-size:var(--fs-h3);letter-spacing:.08em}
+.mpesa-head{background:#3AB44B;padding:.55rem 1rem;text-align:center}
+.mpesa-logo{display:block;height:64px;width:auto;margin:0 auto}   /* official logo; its green matches the band */
 .mpesa-body{padding:1.1rem 1.2rem 1rem;text-align:center}
 .mpesa-label{margin:0 0 .35rem;color:#2F9A3B;font-weight:800;font-size:var(--fs-sm);letter-spacing:.06em;text-transform:uppercase}
 .mpesa-box{position:relative;border:3px solid #141414;border-radius:3px;padding:.5rem 4.2rem;margin:0 0 .95rem}
