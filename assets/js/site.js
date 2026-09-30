@@ -572,6 +572,35 @@
     fromHash();
   }
 
+  /* ---------------------------------------------------------------- Videos */
+  /* Each video shows a still and a play button. Pressing it swaps in the
+     YouTube player (privacy-enhanced mode) so the programme plays right here;
+     nothing loads from YouTube until then. Starting one video puts any other
+     back to its still. Without script, or with Ctrl/Cmd-click, the link opens
+     the programme on YouTube. */
+  function initVideos() {
+    var playing = [];
+    $$('[data-yt]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        var id = a.getAttribute('data-yt');
+        if (!/^[A-Za-z0-9_-]{6,20}$/.test(id)) return;
+        e.preventDefault();
+        playing.forEach(function (p) { if (p.frame.parentNode) p.frame.parentNode.replaceChild(p.facade, p.frame); });
+        playing = [];
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
+        f.title = a.getAttribute('data-title') || 'Video';
+        f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        f.setAttribute('allowfullscreen', '');
+        f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        a.parentNode.replaceChild(f, a);
+        playing.push({ frame: f, facade: a });
+        f.focus();
+      });
+    });
+  }
+
   /* ------------------------------------------------------ Monthly meeting */
   /* The community meets on the last Saturday of every month. Fill in the date
      of the next one; on the day itself it reads "today". Without script the
@@ -702,6 +731,7 @@
     initShare();
     initFloatGive();
     initMeeting();
+    initVideos();
     initNewsletterReader();
     initForms();
     var y = $('#year'); if (y) y.textContent = new Date().getFullYear();
