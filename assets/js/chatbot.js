@@ -132,8 +132,8 @@
       f: ['cost', 'membership'], cta: { l: 'Take action', h: 'advocacy.html#take-action' } },
 
     { id: 'membership', k: 'member membership join sign up register become part how do i join',
-      a: '<p>Membership is <strong>free</strong> and open to people living with lupus, caregivers, family members and supporters. It connects you to peer support, information and chapter activities.</p><p>More than 600 warriors and caregivers across seven countries have joined.</p>',
-      f: ['support', 'volunteer'], cta: { l: 'Become a member', h: 'get-involved.html' } },
+      a: '<p>To become a member, <strong>register using our membership form</strong>. Membership is <strong>USD 50 a year</strong> and is open to people living with lupus, caregivers, family members and supporters.</p><p>Membership connects you to peer support, reliable information and chapter activities, alongside more than 500 warriors and caregivers across seven countries.</p><p>Questions about membership or the fee? Call or WhatsApp us on <strong>+254 142 851 978</strong>.</p>',
+      f: ['support', 'volunteer'], cta: { l: 'Register as a member', h: 'https://docs.google.com/forms/d/e/1FAIpQLSfNSUCnO259uSt09QO0qCbhUaIgj6Nm29GSMlMZLSASEaH0OA/viewform?usp=header' } },
 
     { id: 'volunteer', k: 'volunteer help out give time assist support lfa work with you',
       a: '<p>Our events, campaigns and chapter activities run on volunteers. We need help with awareness events, community outreach, communications, translation, photography, logistics and administration.</p><p>You do not need to have lupus to volunteer, and you do not need a lot of time.</p>',
@@ -212,6 +212,7 @@
     contagious:['catch it','catch lupus','contagious','infectious','spread it'],
     support:   ['support group','near me','meet other','talk to other','someone like me'],
     newsletter:['newsletter','news letter','annual report','your impact','what have you achieved','in numbers'],
+    membership:['become a member','how do i join','how can i join','membership fee','how much is membership','membership cost','cost of membership','cost to join','pay to join','fee to join','annual fee','register as a member','sign up as a member'],
     meeting:   ['monthly meeting','community meeting','next meeting','when do you meet','when do members meet','when do you hold','last saturday','physical meeting','in person','face to face','meetings','meeting'],
     newly:     ['just been diagnosed','just diagnosed','newly diagnosed','was diagnosed','what do i do now','where do i start'],
     contact:   ['talk to a person','speak to someone','real person','human','phone number','call you','reach you'],
