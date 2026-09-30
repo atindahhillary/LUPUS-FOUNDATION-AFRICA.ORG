@@ -120,6 +120,10 @@ To receive orders automatically, set `orderEndpoint` in the `SHOP` settings to a
 
 Every order is confirmed by a person before the customer pays, and the site tells customers LFA will only contact them from +254 142 851 978 or info@lupusfa.org, which protects them from anyone impersonating the shop.
 
+### Membership payments
+
+Membership is USD 50 a year. The Get Involved page (`#register`) shows the two steps: the Google registration form, then payment by M-Pesa Paybill **906744** with the member's full name as the account number. The Paybill appears in `src/pages/get-involved.html` and in the chat assistant's membership answer (`assets/js/chatbot.js`); update both if it ever changes.
+
 ## Ask LFA (the chat assistant)
 
 `assets/js/chatbot.js` powers the "Ask about lupus" assistant in the bottom-left corner of every page.

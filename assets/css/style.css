@@ -559,6 +559,26 @@ p{margin:0 0 1.15em}
 .form-row{display:grid;gap:1.15rem;grid-template-columns:1fr}
 @media(min-width:640px){.form-row{grid-template-columns:1fr 1fr}}
 .form-note{font-size:var(--fs-xs);color:var(--muted)}
+/* Member registration (Get Involved): two steps and the M-Pesa payment card */
+.reg-steps{display:grid;gap:clamp(1.25rem,2.4vw,2rem);align-items:start}
+@media(min-width:900px){.reg-steps{grid-template-columns:1fr 1.05fr}}
+.reg-step{position:relative}
+.reg-num{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--purple);color:#fff;font-weight:800;font-size:var(--fs-base);margin-bottom:1rem}
+.mpesa{max-width:440px;margin:1.1rem 0 1.2rem;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm)}
+.mpesa-head{background:#3DB14A;padding:.85rem 1rem;text-align:center}
+.mpesa-logo{color:#fff;font-weight:800;font-size:var(--fs-h3);letter-spacing:.08em}
+.mpesa-body{padding:1.1rem 1.2rem 1rem;text-align:center}
+.mpesa-label{margin:0 0 .35rem;color:#2F9A3B;font-weight:800;font-size:var(--fs-sm);letter-spacing:.06em;text-transform:uppercase}
+.mpesa-box{position:relative;border:3px solid #141414;border-radius:3px;padding:.5rem 4.2rem;margin:0 0 .95rem}
+.mpesa-value{font-size:var(--fs-stat);font-weight:500;color:#141414;letter-spacing:.06em;font-variant-numeric:tabular-nums;line-height:1.2}
+.mpesa-value--text{letter-spacing:0}
+.mpesa-copy{position:absolute;right:.45rem;top:50%;transform:translateY(-50%);padding:.35rem .7rem;border:1px solid var(--line);border-radius:var(--r-pill);background:var(--paper);color:var(--purple-900);font:inherit;font-size:var(--fs-xs);font-weight:700;cursor:pointer}
+.mpesa-copy:hover{border-color:#2F9A3B;color:#1F7A2B}
+.mpesa-copy.is-copied{background:#3DB14A;border-color:#3DB14A;color:#fff}
+.mpesa-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;border-top:2px solid #141414;padding-top:.6rem;font-size:var(--fs-sm);font-weight:600;color:#141414}
+.mpesa-mini{color:#2F9A3B;font-weight:800;font-size:var(--fs-xs);letter-spacing:.06em;white-space:nowrap}
+.mpesa-steps{margin:0 0 1rem;padding-left:1.2rem;font-size:var(--fs-sm);color:var(--ink-soft);display:grid;gap:.35rem}
+@media(max-width:420px){.mpesa-body{padding:1rem .8rem .9rem}.mpesa-box{padding:.5rem .6rem}.mpesa-box:has(.mpesa-copy){padding-bottom:.6rem}.mpesa-copy{position:static;transform:none;display:block;margin:.35rem auto 0}}
 /* Volunteer form dialog (Get Involved) */
 .vol-dialog{border:0;border-radius:var(--r-lg);padding:0;width:min(620px,calc(100% - 1.5rem));max-height:calc(100dvh - 1.5rem);overflow:auto;background:var(--paper);color:var(--ink);box-shadow:var(--shadow-lg)}
 .vol-dialog::backdrop{background:rgba(20,12,40,.55);backdrop-filter:blur(4px)}

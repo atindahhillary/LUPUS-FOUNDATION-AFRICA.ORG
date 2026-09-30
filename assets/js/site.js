@@ -572,6 +572,28 @@
     fromHash();
   }
 
+  /* ----------------------------------------------------------- Copy buttons */
+  /* [data-copy] copies its value (the M-Pesa Paybill number) for pasting into M-Pesa. */
+  function initCopy() {
+    $$('[data-copy]').forEach(function (b) {
+      var label = b.textContent;
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-copy');
+        var done = function () {
+          b.textContent = 'Copied'; b.classList.add('is-copied');
+          setTimeout(function () { b.textContent = label; b.classList.remove('is-copied'); }, 1800);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(v).then(done, function () {});
+        else {
+          var t = document.createElement('textarea'); t.value = v; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+          document.body.appendChild(t); t.select();
+          try { document.execCommand('copy'); done(); } catch (e) {}
+          t.remove();
+        }
+      });
+    });
+  }
+
   /* ---------------------------------------------------------------- Videos */
   /* Each video shows a still and a play button. Pressing it swaps in the
      YouTube player (privacy-enhanced mode) so the programme plays right here;
@@ -732,6 +754,7 @@
     initFloatGive();
     initMeeting();
     initVideos();
+    initCopy();
     initNewsletterReader();
     initForms();
     var y = $('#year'); if (y) y.textContent = new Date().getFullYear();
