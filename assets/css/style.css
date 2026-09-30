@@ -486,7 +486,8 @@ p{margin:0 0 1.15em}
 .card-links{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:.8rem}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 /* Videos: a still with a play button; pressing it plays the programme on the page */
-.video-row{margin-bottom:clamp(1.4rem,3vw,2rem)}
+.video-row{margin-bottom:clamp(1.4rem,3vw,2rem);grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:700px){.video-row{grid-template-columns:1fr}}
 .video{display:flex;flex-direction:column;gap:.85rem;min-width:0}
 .video-frame{position:relative;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;background:#140c28;box-shadow:var(--shadow)}
 .video-frame iframe,.video-facade{position:absolute;inset:0;width:100%;height:100%;border:0}
