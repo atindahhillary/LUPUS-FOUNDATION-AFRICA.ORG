@@ -124,6 +124,22 @@ Every order is confirmed by a person before the customer pays, and the site tell
 
 Membership is KES 500 or USD 4 a year. The Get Involved page (`#register`) shows the two steps: the Google registration form, then payment by M-Pesa Paybill **906744** with the member's full name as the account number. The Paybill appears in `src/pages/get-involved.html` and in the chat assistant's membership answer (`assets/js/chatbot.js`); update both if it ever changes.
 
+## Publishing to lupusfa.org
+
+Every push to `main` publishes the site to lupusfa.org automatically through `.github/workflows/deploy-lupusfa.yml`. The workflow rebuilds the pages with `SITE_URL=https://lupusfa.org/` (so canonical links, social previews and the sitemap point there), collects only the public files (the HTML pages, `assets/`, `robots.txt`, `sitemap.xml` and a `.htaccess`), and uploads changed files over encrypted FTP (FTPS, certificate checked). It never touches email or anything outside the FTP account's folder, and it only updates or removes files it uploaded itself.
+
+**One-time setup, done by someone with the cPanel and GitHub logins:**
+
+1. **Back up the old site.** In cPanel, open File Manager, select everything in `public_html`, choose Compress, then download the zip. (The old PHP application currently returns a server error on every page; it needs PHP 8.3.)
+2. **Create an FTP account for deploys.** cPanel > FTP Accounts: a username such as `deploy`, a strong password, and set **Directory** to `public_html` (delete the extra folder name cPanel suggests). This account can only reach the website files.
+3. **Note the FTP server name.** Next to the new account, choose Configure FTP Client and copy the FTP server shown.
+4. **Add three secrets in GitHub.** Repository > Settings > Secrets and variables > Actions > New repository secret: `FTP_SERVER`, `FTP_USERNAME` (the full name shown, for example `deploy@lupusfa.org`) and `FTP_PASSWORD`.
+5. **Publish.** Actions > Deploy to lupusfa.org > Run workflow (or push any change). The first run uploads everything; later runs upload only what changed, usually within a minute or two.
+
+After the first deploy, the old application's files are still in `public_html` but the new `.htaccess` serves the static site; remove the old files once you have the backup. If the upload fails with a certificate error, use the server name from Configure FTP Client rather than `ftp.lupusfa.org`.
+
+Optional repository variables: `SITE_URL` (public address, default `https://lupusfa.org/`) and `DEPLOY_DIR` (server folder relative to the FTP account, default `./`). To trial the site first, create the FTP account with Directory `public_html/new` and set `SITE_URL` to `https://lupusfa.org/new/`.
+
 ## Ask LFA (the chat assistant)
 
 `assets/js/chatbot.js` powers the "Ask about lupus" assistant in the bottom-left corner of every page.

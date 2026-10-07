@@ -1,0 +1,101 @@
+# Publishes the website to lupusfa.org (cPanel hosting) every time main changes.
+#
+# Needs three repository secrets (Settings > Secrets and variables > Actions):
+#   FTP_SERVER    the FTP host cPanel shows under FTP Accounts > Configure FTP Client
+#   FTP_USERNAME  an FTP account whose directory is public_html (web files only, no mail access)
+#   FTP_PASSWORD  that account's password
+# Optional repository variables:
+#   SITE_URL      public address of the site (default https://lupusfa.org/)
+#   DEPLOY_DIR    folder on the server, relative to the FTP account (default ./, which is public_html)
+#
+# Until the secrets exist the job runs, prints a reminder and uploads nothing.
+# Only files this workflow uploaded are ever updated or removed on the server; anything else
+# already in public_html is left untouched.
+name: Deploy to lupusfa.org
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-lupusfa
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      SITE_URL: ${{ vars.SITE_URL || 'https://lupusfa.org/' }}
+    steps:
+      - name: Check the FTP secrets are set
+        if: env.FTP_SERVER == ''
+        run: echo "::notice::lupusfa.org deploy skipped. Add FTP_SERVER, FTP_USERNAME and FTP_PASSWORD as repository secrets to switch it on."
+
+      - uses: actions/checkout@v4
+        if: env.FTP_SERVER != ''
+
+      - name: Build for lupusfa.org
+        if: env.FTP_SERVER != ''
+        run: node build.mjs
+
+      - name: Collect the public files
+        if: env.FTP_SERVER != ''
+        run: |
+          # Only the built site goes up; never src/, .work/, build.mjs or the README.
+          mkdir dist
+          cp ./*.html robots.txt sitemap.xml dist/
+          cp -r assets dist/
+          base_path="$(node -e "console.log(new URL(process.env.SITE_URL).pathname)")"
+          cat > dist/.htaccess <<EOF
+          # Static website: index.html is the home page. These rules replace the old
+          # PHP application's rewrites, which sent every request to index.php.
+          DirectoryIndex index.html
+          ErrorDocument 404 ${base_path}404.html
+
+          <IfModule mod_rewrite.c>
+            RewriteEngine On
+            RewriteCond %{HTTPS} !=on
+            RewriteCond %{HTTP:X-Forwarded-Proto} !https
+            RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+          </IfModule>
+
+          # The deploy keeps a list of uploaded files here; it is not for visitors.
+          <Files ".ftp-deploy-sync-state.json">
+            <IfModule mod_authz_core.c>
+              Require all denied
+            </IfModule>
+          </Files>
+
+          # Pages always fresh; images, styles and scripts carry a ?v= version so can be cached long.
+          <IfModule mod_expires.c>
+            ExpiresActive On
+            ExpiresByType text/html "access plus 0 seconds"
+            ExpiresByType text/css "access plus 1 year"
+            ExpiresByType application/javascript "access plus 1 year"
+            ExpiresByType text/javascript "access plus 1 year"
+            ExpiresByType image/jpeg "access plus 1 year"
+            ExpiresByType image/png "access plus 1 year"
+            ExpiresByType application/pdf "access plus 1 week"
+          </IfModule>
+          EOF
+          echo "Publishing $(find dist -type f | wc -l) files for ${SITE_URL}"
+
+      - name: Upload to lupusfa.org over FTPS
+        if: env.FTP_SERVER != ''
+        # SamKirkland/FTP-Deploy-Action v4.4.0, pinned to its commit
+        uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          security: strict
+          local-dir: ./dist/
+          server-dir: ${{ vars.DEPLOY_DIR || './' }}
+          dangerous-clean-slate: false
+          log-level: standard
