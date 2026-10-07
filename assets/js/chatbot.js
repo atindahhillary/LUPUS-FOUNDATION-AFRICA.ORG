@@ -132,7 +132,7 @@
       f: ['cost', 'membership'], cta: { l: 'Take action', h: 'advocacy.html#take-action' } },
 
     { id: 'membership', k: 'member membership join sign up register become part how do i join',
-      a: '<p>Becoming a member takes two steps:</p><p><strong>1.</strong> Fill in our registration form.<br><strong>2.</strong> Pay the annual fee of <strong>USD 50</strong> by M-Pesa: Lipa na M-PESA, Pay Bill, business number <strong>906744</strong>, account number <strong>your full name</strong>.</p><p>Membership is open to people living with lupus, caregivers, family members and supporters, and connects you with more than 500 warriors and caregivers across seven countries. For the amount in Kenya shillings, call or WhatsApp us on <strong>+254 142 851 978</strong>.</p>',
+      a: '<p>Becoming a member takes two steps:</p><p><strong>1.</strong> Fill in our registration form.<br><strong>2.</strong> Pay the annual fee of <strong>KES 500</strong> (about USD 4) by M-Pesa: Lipa na M-PESA, Pay Bill, business number <strong>906744</strong>, account number <strong>your full name</strong>.</p><p>Membership is open to people living with lupus, caregivers, family members and supporters, and connects you with more than 500 warriors and caregivers across seven countries. Paying from outside Kenya, or need another way to pay? Call or WhatsApp us on <strong>+254 142 851 978</strong>.</p>',
       f: ['support', 'volunteer'], cta: { l: 'How to join', h: 'get-involved.html#register' } },
 
     { id: 'volunteer', k: 'volunteer help out give time assist support lfa work with you',
