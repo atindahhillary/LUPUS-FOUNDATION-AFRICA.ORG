@@ -18,8 +18,9 @@ const SRC = join(root, 'src');
 const PAGES = join(SRC, 'pages');
 
 // Public address of the site, used for canonical links, social previews, sitemap.xml and robots.txt.
-// The lupusfa.org deploy (.github/workflows/deploy-lupusfa.yml) builds with SITE_URL set.
-const BASE = (process.env.SITE_URL || 'https://atindahhillary.github.io/LUPUS-FOUNDATION-AFRICA.ORG/').replace(/\/?$/, '/');
+// lupusfa.org is the main address; the GitHub Pages copy points search engines there too.
+// Set SITE_URL to build for another address (for example a trial folder).
+const BASE = (process.env.SITE_URL || 'https://lupusfa.org/').replace(/\/?$/, '/');
 const SITE_NAME = 'Lupus Foundation of Africa';
 
 const layout = readFileSync(join(SRC, 'layout.html'), 'utf8');

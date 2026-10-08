@@ -56,20 +56,27 @@ jobs:
           # PHP application's rewrites, which sent every request to index.php.
           DirectoryIndex index.html
           ErrorDocument 404 ${base_path}404.html
+          # No folder listings (the old WordPress .htaccess used this too, so the server allows it)
+          Options -Indexes
 
           <IfModule mod_rewrite.c>
             RewriteEngine On
             RewriteCond %{HTTPS} !=on
             RewriteCond %{HTTP:X-Forwarded-Proto} !https
             RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+            # The old WordPress site's files may still be on the server: keep all of them
+            # out of reach (admin, uploads, install zips, PHP entry points). Safe to keep
+            # after they are deleted.
+            RewriteRule ^(wp-admin|wp-content|wp-includes)(/|$) - [F,L]
+            RewriteRule ^(index\.php|xmlrpc\.php|wp-[^/]*\.php|readme\.html|license\.txt|latest\.zip|wp-admin\.zip|php\.ini)$ - [F,L]
           </IfModule>
 
-          # The deploy keeps a list of uploaded files here; it is not for visitors.
-          <Files ".ftp-deploy-sync-state.json">
+          # Hidden files (server settings, the deploy's list of uploaded files) are not for visitors.
+          <FilesMatch "^\.">
             <IfModule mod_authz_core.c>
               Require all denied
             </IfModule>
-          </Files>
+          </FilesMatch>
 
           # Pages always fresh; images, styles and scripts carry a ?v= version so can be cached long.
           <IfModule mod_expires.c>

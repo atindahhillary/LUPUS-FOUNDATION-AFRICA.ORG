@@ -1,8 +1,8 @@
 # Lupus Foundation of Africa
 
-The website for the [Lupus Foundation of Africa](https://atindahhillary.github.io/LUPUS-FOUNDATION-AFRICA.ORG/) (LFA), an African patient-led, patient-centred organisation working so that every person living with lupus is seen, heard, diagnosed early, treated appropriately and supported to live a full and dignified life.
+The website for the [Lupus Foundation of Africa](https://lupusfa.org/) (LFA), an African patient-led, patient-centred organisation working so that every person living with lupus is seen, heard, diagnosed early, treated appropriately and supported to live a full and dignified life.
 
-**Live site:** https://atindahhillary.github.io/LUPUS-FOUNDATION-AFRICA.ORG/
+**Live site:** https://lupusfa.org/ (published automatically on every push to `main`; a preview copy also runs on GitHub Pages at https://atindahhillary.github.io/LUPUS-FOUNDATION-AFRICA.ORG/)
 
 ---
 
