@@ -16,7 +16,7 @@ A fast, accessible, static website set in Inter. No framework, no runtime depend
 | --- | --- |
 | `index.html` | Home: three-door entry (I have lupus / I want to learn / I want to help) |
 | `about.html` | Who we are, mission, vision, values, three pillars, team, governance |
-| `partners.html` | Clinical, mental health, diagnostic, treatment, nutrition and media partners |
+| `partners.html` | Clinical, mental health, diagnostic, treatment and nutrition partners |
 | `understanding-lupus.html` | What lupus is, causes, symptoms, diagnosis, treatment, FAQs |
 | `newly-diagnosed.html` | "I have lupus. What now?": five first steps |
 | `living-with-lupus.html` | Living well, mental health, work, women, pregnancy, young people, myths |

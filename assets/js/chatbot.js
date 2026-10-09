@@ -148,7 +148,7 @@
       f: ['donate', 'contact'], cta: { l: 'Visit the shop', h: 'shop.html' } },
 
     { id: 'partner', k: 'partner partnership organisation company corporate sponsor collaborate business hospital media pharmaceutical',
-      a: '<p>We work with healthcare, corporate, research, media, pharmaceutical, donor and event partners. Current partners include Aga Khan University Hospital, Mater Hospital, Kenyatta National Hospital, Nairobi Arthritis Clinic, the Association for Arthritis and Rheumatic Diseases of Kenya (AARD), Vimbo Health, AAR Healthcare, Citizen TV, NTV Kenya and KBC.</p>',
+      a: '<p>We work with healthcare, corporate, research, pharmaceutical, donor and event partners. Current partners include Aga Khan University Hospital, Mater Hospital, Kenyatta National Hospital, Nairobi Arthritis Clinic, the Association for Arthritis and Rheumatic Diseases of Kenya (AARD), Vimbo Health and AAR Healthcare.</p>',
       f: ['contact', 'research'], cta: { l: 'Partner with us', h: 'partner-with-us.html' } },
 
     { id: 'about', k: 'about lfa who are you organisation foundation history founded mission vision what do you do',
