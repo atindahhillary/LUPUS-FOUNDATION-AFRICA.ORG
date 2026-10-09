@@ -122,7 +122,7 @@ Every order is confirmed by a person before the customer pays, and the site tell
 
 ### Membership payments
 
-Membership is KES 500 or USD 4 a year. The Get Involved page (`#register`) shows the two steps: the Google registration form, then payment by M-Pesa Paybill **906744** with the member's full name as the account number. The Paybill appears in `src/pages/get-involved.html` and in the chat assistant's membership answer (`assets/js/chatbot.js`); update both if it ever changes.
+Membership is KES 500 a year (about USD 4). The Get Involved page (`#register`) shows the two steps: the Google registration form, then payment by M-Pesa Paybill **906744** with the member's full name as the account number. The Paybill appears in `src/pages/get-involved.html` and in the chat assistant's membership answer (`assets/js/chatbot.js`); update both if it ever changes.
 
 ## Publishing to lupusfa.org
 

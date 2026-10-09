@@ -132,7 +132,7 @@
       f: ['cost', 'membership'], cta: { l: 'Take action', h: 'advocacy.html#take-action' } },
 
     { id: 'membership', k: 'member membership join sign up register become part how do i join',
-      a: '<p>Becoming a member takes two steps:</p><p><strong>1.</strong> Fill in our registration form.<br><strong>2.</strong> Pay the annual fee of <strong>KES&nbsp;500 or USD&nbsp;4</strong>. By M-Pesa: Lipa na M-PESA, Pay Bill, business number <strong>906744</strong>, account number <strong>your full name</strong>.</p><p>Membership is open to people living with lupus, caregivers, family members and supporters, and connects you with more than 500 warriors and caregivers across seven countries. Paying the USD&nbsp;4, from outside Kenya or another way? Call or WhatsApp us on <strong>+254 142 851 978</strong>.</p>',
+      a: '<p>Becoming a member takes two steps:</p><p><strong>1.</strong> Fill in our registration form.<br><strong>2.</strong> Pay the annual fee of <strong>KES&nbsp;500</strong> (about USD&nbsp;4) by M-Pesa: Lipa na M-PESA, Pay Bill, business number <strong>906744</strong>, account number <strong>your full name</strong>.</p><p>Membership is open to people living with lupus, caregivers, family members and supporters, and connects you with more than 500 warriors and caregivers across seven countries. Paying from outside Kenya, or need another way to pay? Call or WhatsApp us on <strong>+254 142 851 978</strong>.</p>',
       f: ['support', 'volunteer'], cta: { l: 'How to join', h: 'get-involved.html#register' } },
 
     { id: 'volunteer', k: 'volunteer help out give time assist support lfa work with you',
@@ -172,7 +172,7 @@
       f: ['contagious', 'cure'], cta: { l: 'Myths and facts', h: 'living-with-lupus.html#myths' } },
 
     { id: 'events', k: 'event events world lupus day campaign walk wellness day meetup gallery photos when',
-      a: '<p>Our flagship campaign is <strong>World Lupus Day</strong>. In 2026 we walked through Nairobi with the Aga Khan University Hospital under the message "Make Lupus Visible", followed by a wellness and education programme and a patient pledge wall.</p><p>We also run wellness days, patient meet-ups, hospital visits and awareness campaigns through the year.</p>',
+      a: '<p>Our flagship campaign is <strong>World Lupus Day</strong>. In 2026 we walked through Nairobi with the Aga Khan University Hospital under the message "Make Lupus Visible", followed by a wellness and education programme and a patient pledge wall.</p><p>We also run wellness days, patient meet-ups, hospital visits and awareness campaigns through the year. In October 2025 we held the Lupus Wellness &amp; Rheumatology Camp at Mater Misericordiae Hospital, the first rheumatology camp in Kenya planned and delivered with a patient organisation.</p>',
       f: ['membership', 'stories'], cta: { l: 'Events and gallery', h: 'events.html' } },
 
     { id: 'contact', k: 'contact reach call phone email whatsapp talk human speak person address office where located nairobi',

@@ -503,6 +503,7 @@ p{margin:0 0 1.15em}
 .video-src{margin:0;font-size:var(--fs-xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple-500)}
 .video-meta h3{font-size:var(--fs-h4);margin:.3rem 0 0;line-height:1.3}
 .gallery figure{margin:0 0 .9rem;break-inside:avoid}
+.gallery--3{columns:3 240px}
 .gal-btn{display:block;width:100%;padding:0;border:0;background:var(--lilac-100);border-radius:var(--r);overflow:hidden;cursor:zoom-in;position:relative;line-height:0}
 .gal-btn img{width:100%;transition:transform .5s var(--ease),filter .3s}
 .gal-btn:hover img{transform:scale(1.05);filter:brightness(1.05)}
@@ -607,6 +608,11 @@ p{margin:0 0 1.15em}
 .share svg{width:16px;height:16px;fill:currentColor}
 
 /* ---------- Partner logos ---------- */
+/* partner logos: every logo fits the same tile, whatever its shape */
+.logo-wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1rem;margin-bottom:clamp(2rem,4vw,3rem)}
+.logo-tile{margin:0;height:130px;display:grid;place-items:center;padding:1rem 1.4rem;background:#fff;border:1px solid var(--line);border-radius:var(--r);transition:.25s var(--ease)}
+.logo-tile:hover{border-color:var(--lilac);box-shadow:var(--shadow-sm)}
+.logo-tile img{max-width:100%;max-height:96px;width:auto;height:auto;object-fit:contain}
 .partner-group{margin-bottom:2.5rem}
 .partner-group h3{font-size:var(--fs-h4);font-family:var(--sans);font-weight:600;color:var(--purple-700);padding-bottom:.7rem;border-bottom:2px solid var(--lilac-100);margin-bottom:1.2rem}
 .partner-grid{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fill,minmax(245px,1fr))}
