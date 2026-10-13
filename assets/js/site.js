@@ -738,6 +738,193 @@
       '&body=' + encodeURIComponent(lines.join('\n'));
   }
 
+  /* ----------------------------------------------------- Gallery cinema mode */
+  /* Gallery page: the photos play full screen as a film, chapter by chapter, with a
+     slow Ken Burns move and cross-fades. The progress bar's animation is the clock, so
+     pausing the bar pauses the film. Each photo loads just before it is shown and the
+     next one loads behind it; the grid only ever holds the small copies. */
+  function initCinema() {
+    var cine = $('#cine');
+    if (!cine) return;
+    var chapters = $$('.cine-chapter');
+    var chips = $$('[data-chapter-filter]');
+    var layers = $$('.cine-layer', cine);
+    var stage = $('.cine-stage', cine);
+    var bar = $('.cine-progress span', cine);
+    var caption = $('.cine-caption', cine), label = $('.cine-label', cine), count = $('.cine-count', cine);
+    var playBtn = $('.cine-play', cine), fsBtn = $('.cine-fs', cine);
+    var tSub = $('.cine-title-sub', cine), tH = $('.cine-title-h', cine), tN = $('.cine-title-n', cine);
+    var SLIDE = 5200, TITLE = 2600, FADE = 1300;
+    var list = [], idx = 0, cur = 0, playing = false, gen = 0, lastChapter = null;
+    var lastFocus = null, idleT = 0, titleT = 0, cache = {};
+
+    function tilesIn(only) {
+      return chapters.filter(function (c) {
+        return only ? c.getAttribute('data-chapter') === only : !c.hidden;
+      }).reduce(function (all, c) { return all.concat($$('.cine-tile', c)); }, []);
+    }
+    function item(tile) {
+      var ch = tile.closest('.cine-chapter');
+      return {
+        src: tile.getAttribute('data-full'), alt: $('img', tile).alt, chapter: ch.getAttribute('data-chapter'),
+        title: ch.getAttribute('data-title'), sub: ch.getAttribute('data-sub'), credit: ch.getAttribute('data-credit'),
+        n: $$('.cine-tile', ch).length
+      };
+    }
+    function load(src) {
+      if (!cache[src]) cache[src] = new Promise(function (done) {
+        var im = new Image();
+        im.onload = im.onerror = function () { done(); };
+        im.src = src;
+      });
+      return cache[src];
+    }
+
+    function show(i, titled) {
+      idx = (i + list.length) % list.length;
+      var it = list[idx], my = ++gen;
+      load(it.src).then(function () {
+        if (my !== gen) return;
+        cur = cur ? 0 : 1;
+        var layer = layers[cur];
+        $('.cine-img', layer).src = it.src;
+        $('.cine-bg', layer).style.backgroundImage = 'url("' + it.src + '")';
+        layer.setAttribute('data-kb', String(idx % 4));
+        var withTitle = titled && it.chapter !== lastChapter;
+        lastChapter = it.chapter;
+        var d = SLIDE + (withTitle ? TITLE : 0);
+        layer.style.setProperty('--d', (d + FADE) + 'ms');
+        layer.classList.remove('is-kb'); void layer.offsetWidth; layer.classList.add('is-kb');
+        layers.forEach(function (l) { l.classList.toggle('is-on', l === layer); });
+
+        clearTimeout(titleT);
+        if (withTitle) {
+          tSub.innerHTML = it.sub; tH.innerHTML = it.title;
+          tN.textContent = it.n + (it.n === 1 ? ' photograph' : ' photographs');
+          cine.classList.add('is-titled');
+          titleT = setTimeout(function () { cine.classList.remove('is-titled'); }, TITLE);
+        } else {
+          cine.classList.remove('is-titled');
+        }
+        label.innerHTML = it.title + (it.credit ? ' &middot; ' + it.credit : '');
+        count.textContent = (idx + 1) + ' / ' + list.length;
+        caption.textContent = it.alt;
+
+        bar.style.setProperty('--bar-d', d + 'ms');
+        bar.classList.remove('is-run'); void bar.offsetWidth; bar.classList.add('is-run');
+        load(list[(idx + 1) % list.length].src);
+      });
+    }
+    bar.addEventListener('animationend', function () { if (playing) show(idx + 1, true); });
+
+    function setPlaying(on) {
+      playing = on;
+      cine.classList.toggle('is-playing', on);
+      playBtn.setAttribute('aria-label', on ? 'Pause' : 'Play');
+      caption.setAttribute('aria-live', on ? 'off' : 'polite');
+      poke();
+    }
+    function poke() {
+      cine.classList.remove('is-idle');
+      clearTimeout(idleT);
+      if (playing) idleT = setTimeout(function () { cine.classList.add('is-idle'); }, 2800);
+    }
+    function step(d) { show(idx + d, playing); poke(); }
+
+    function open(tiles, start, autoplay) {
+      list = tiles.map(item);
+      if (!list.length) return;
+      lastFocus = document.activeElement;
+      lastChapter = null;
+      cine.hidden = false; void cine.offsetWidth;
+      cine.classList.add('is-open');
+      document.documentElement.style.overflow = 'hidden';
+      setPlaying(autoplay);
+      show(Math.max(0, start), autoplay);
+      $('.cine-close', cine).focus({ preventScroll: true });
+    }
+    function close() {
+      gen++;
+      setPlaying(false);
+      clearTimeout(titleT);
+      cine.classList.remove('is-open', 'is-titled', 'is-idle');
+      document.documentElement.style.overflow = '';
+      if (document.fullscreenElement) document.exitFullscreen().catch(function () {});
+      setTimeout(function () {
+        if (cine.classList.contains('is-open')) return;
+        cine.hidden = true;
+        layers.forEach(function (l) { l.classList.remove('is-on', 'is-kb'); });
+      }, 500);
+      if (lastFocus) lastFocus.focus({ preventScroll: true });
+    }
+    function fullscreen() {
+      if (!cine.requestFullscreen) return;
+      if (document.fullscreenElement) document.exitFullscreen().catch(function () {});
+      else cine.requestFullscreen().catch(function () {});
+    }
+    if (!cine.requestFullscreen) fsBtn.hidden = true;
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var f = chip.getAttribute('data-chapter-filter');
+        chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+        chapters.forEach(function (c) { c.hidden = f !== 'all' && c.getAttribute('data-chapter') !== f; });
+      });
+    });
+    $$('[data-cine-play]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        open(tilesIn(b.getAttribute('data-cine-play') || null), 0, true);
+        if (cine.requestFullscreen) cine.requestFullscreen().catch(function () {});
+      });
+    });
+    $$('.cine-tile').forEach(function (t) {
+      t.addEventListener('click', function () {
+        var tiles = tilesIn(null);
+        open(tiles, tiles.indexOf(t), false);
+      });
+    });
+
+    playBtn.addEventListener('click', function () { setPlaying(!playing); });
+    fsBtn.addEventListener('click', fullscreen);
+    $('.cine-close', cine).addEventListener('click', close);
+    $('.cine-prev', cine).addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
+    $('.cine-next', cine).addEventListener('click', function (e) { e.stopPropagation(); step(1); });
+
+    var x0 = null, swiped = false;
+    stage.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; swiped = false; }, { passive: true });
+    stage.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 45) { swiped = true; step(dx < 0 ? 1 : -1); }
+    });
+    stage.addEventListener('click', function () {   // tap or click the photo to pause or play
+      if (swiped) { swiped = false; return; }
+      setPlaying(!playing);
+    });
+    cine.addEventListener('mousemove', poke);
+    cine.addEventListener('touchstart', poke, { passive: true });
+
+    document.addEventListener('keydown', function (e) {
+      if (!cine.classList.contains('is-open')) return;
+      var onButton = e.target && e.target.tagName === 'BUTTON';
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') step(1);
+      else if (e.key === 'ArrowLeft') step(-1);
+      else if ((e.key === ' ' || e.key === 'k') && !onButton) { e.preventDefault(); setPlaying(!playing); }
+      else if (e.key === 'f' || e.key === 'F') fullscreen();
+      else if (e.key === 'Tab') {    // keep focus inside the film
+        var f = $$('.cine-ui', cine).filter(function (b) { return !b.hidden && b.offsetParent !== null; });
+        var at = f.indexOf(document.activeElement);
+        e.preventDefault();
+        f[(at + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+      }
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden && playing) setPlaying(false);
+    });
+  }
+
   /* ----------------------------------------------------------- Bootstrap */
   function init() {
     initNav();
@@ -747,6 +934,7 @@
     initFlips();
     initSymptomTool();
     initLightbox();
+    initCinema();
     initHeroSlides();
     initVolunteer();
     initFilters();
