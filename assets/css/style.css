@@ -1143,7 +1143,9 @@ p{margin:0 0 1.15em}
   .cine-chips::-webkit-scrollbar{display:none}
   .cine-chips .chip{flex:none}
 }
-@media (max-width:599.98px){.cine-count{display:none}.cine-nav{top:auto;bottom:.9rem;transform:none}}
+@media (max-width:599.98px){.cine-count{display:none}.cine-nav{top:auto;bottom:.9rem;transform:none}
+  .cine{grid-template-rows:var(--bar) 1fr clamp(96px,14vh,112px)}
+  .cine-caption{font-size:var(--fs-xs);line-height:1.45;-webkit-line-clamp:4}}
 @media (prefers-reduced-motion:reduce){
   .cine-layer.is-kb .cine-img{animation:none}
   .cine-progress span.is-run{animation-duration:var(--bar-d,6s)!important}

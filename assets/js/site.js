@@ -251,8 +251,9 @@
       idx = (i + triggers.length) % triggers.length;
       var src = triggers[idx].getAttribute('data-full') || $('img', triggers[idx]).src;
       var alt = $('img', triggers[idx]).alt || '';
+      var cap = triggers[idx].getAttribute('data-caption') || alt;
       img.src = src; img.alt = alt;
-      if (meta) meta.textContent = (idx + 1) + ' of ' + triggers.length + (alt ? ': ' + alt : '');
+      if (meta) meta.textContent = (idx + 1) + ' of ' + triggers.length + (cap ? ': ' + cap : '');
       lb.classList.add('is-open');
       document.body.style.overflow = 'hidden';
       $('.lb-close', lb).focus();
@@ -766,7 +767,8 @@
     function item(tile) {
       var ch = tile.closest('.cine-chapter');
       return {
-        src: tile.getAttribute('data-full'), alt: $('img', tile).alt, chapter: ch.getAttribute('data-chapter'),
+        src: tile.getAttribute('data-full'), caption: tile.getAttribute('data-caption') || $('img', tile).alt,
+        chapter: ch.getAttribute('data-chapter'),
         title: ch.getAttribute('data-title'), sub: ch.getAttribute('data-sub'), credit: ch.getAttribute('data-credit'),
         n: $$('.cine-tile', ch).length
       };
@@ -808,7 +810,7 @@
         }
         label.innerHTML = it.title + (it.credit ? ' &middot; ' + it.credit : '');
         count.textContent = (idx + 1) + ' / ' + list.length;
-        caption.textContent = it.alt;
+        caption.textContent = it.caption;
 
         bar.style.setProperty('--bar-d', d + 'ms');
         bar.classList.remove('is-run'); void bar.offsetWidth; bar.classList.add('is-run');
