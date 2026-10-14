@@ -752,7 +752,7 @@
     var layers = $$('.cine-layer', cine);
     var stage = $('.cine-stage', cine);
     var bar = $('.cine-progress span', cine);
-    var caption = $('.cine-caption', cine), label = $('.cine-label', cine), count = $('.cine-count', cine);
+    var label = $('.cine-label', cine), count = $('.cine-count', cine);
     var playBtn = $('.cine-play', cine), fsBtn = $('.cine-fs', cine);
     var tSub = $('.cine-title-sub', cine), tH = $('.cine-title-h', cine), tN = $('.cine-title-n', cine);
     var SLIDE = 5200, TITLE = 2600, FADE = 1300;
@@ -767,7 +767,7 @@
     function item(tile) {
       var ch = tile.closest('.cine-chapter');
       return {
-        src: tile.getAttribute('data-full'), caption: tile.getAttribute('data-caption') || $('img', tile).alt,
+        src: tile.getAttribute('data-full'), alt: $('img', tile).alt,
         chapter: ch.getAttribute('data-chapter'),
         title: ch.getAttribute('data-title'), sub: ch.getAttribute('data-sub'), credit: ch.getAttribute('data-credit'),
         n: $$('.cine-tile', ch).length
@@ -790,6 +790,7 @@
         cur = cur ? 0 : 1;
         var layer = layers[cur];
         $('.cine-img', layer).src = it.src;
+        layers.forEach(function (l) { $('.cine-img', l).alt = l === layer ? it.alt : ''; });
         $('.cine-bg', layer).style.backgroundImage = 'url("' + it.src + '")';
         layer.setAttribute('data-kb', String(idx % 4));
         var withTitle = titled && it.chapter !== lastChapter;
@@ -810,7 +811,6 @@
         }
         label.innerHTML = it.title + (it.credit ? ' &middot; ' + it.credit : '');
         count.textContent = (idx + 1) + ' / ' + list.length;
-        caption.textContent = it.caption;
 
         bar.style.setProperty('--bar-d', d + 'ms');
         bar.classList.remove('is-run'); void bar.offsetWidth; bar.classList.add('is-run');
@@ -823,7 +823,6 @@
       playing = on;
       cine.classList.toggle('is-playing', on);
       playBtn.setAttribute('aria-label', on ? 'Pause' : 'Play');
-      caption.setAttribute('aria-live', on ? 'off' : 'polite');
       poke();
     }
     function poke() {
