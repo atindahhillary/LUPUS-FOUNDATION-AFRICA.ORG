@@ -181,6 +181,18 @@
         if (p) p.style.maxHeight = p.scrollHeight + 'px';
       });
     });
+    // Links like about.html#story-faith open that story on arrival.
+    var target = location.hash && document.getElementById(location.hash.slice(1));
+    if (target && target.classList.contains('acc-panel')) {
+      var opener = document.querySelector('.acc-btn[aria-controls="' + target.id + '"]');
+      if (opener) {
+        opener.click();
+        var card = opener.closest('article') || opener;
+        var go = function () { setTimeout(function () { window.scrollTo({ top: card.getBoundingClientRect().top + window.pageYOffset - 110, behavior: 'instant' }); }, 150); };
+        // wait for the browser's own jump to the #hash, then line up the whole card
+        if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+      }
+    }
   }
 
   /* --------------------------------------------------------- Flip cards */

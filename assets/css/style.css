@@ -527,6 +527,7 @@ p{margin:0 0 1.15em}
 .chip{padding:.55rem 1.1rem;border-radius:var(--r-pill);border:1.5px solid var(--line);background:var(--paper);font-size:var(--fs-sm);font-weight:500;
   color:var(--ink-soft);cursor:pointer;font-family:inherit;transition:.22s var(--ease)}
 .chip:hover{border-color:var(--lilac);color:var(--purple-700)}
+a.chip{text-decoration:none}
 .chip[aria-pressed="true"]{background:var(--purple);border-color:var(--purple);color:#fff}
 .search-box{position:relative;margin-bottom:1.5rem}
 .search-box input{width:100%;padding:1rem 1.1rem 1rem 3rem;border:1.5px solid var(--line);border-radius:var(--r-pill);font-family:inherit;font-size:var(--fs-base);background:var(--paper);color:var(--ink)}
