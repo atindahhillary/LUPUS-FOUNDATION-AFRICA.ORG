@@ -415,6 +415,7 @@ p{margin:0 0 1.15em}
 .story-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
 .story-kicker{font-size:var(--fs-xs);letter-spacing:.11em;text-transform:uppercase;font-weight:600;color:var(--purple-500);margin-bottom:.6rem}
 .story-body p{font-size:var(--fs-sm);color:var(--ink-soft);flex:1}
+.story-body .story-kicker{flex:none}
 
 /* ---------- Symptom explorer ---------- */
 .tool{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-xl);padding:clamp(1.5rem,3vw,2.5rem);box-shadow:var(--shadow-sm)}
