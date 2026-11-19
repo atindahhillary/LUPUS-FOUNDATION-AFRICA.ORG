@@ -938,6 +938,49 @@
     });
   }
 
+  /* ------------------------------------------------- Event popup (flyer) */
+  // Shows once per browser visit until the end of the event day (Nairobi time),
+  // then stops by itself. [data-evt="before|after"] text swaps on the same date.
+  var EVT = { key: 'lfa-evt-eoy-2026', starts: Date.UTC(2026, 10, 28, 8, 0), ends: Date.UTC(2026, 10, 28, 21, 0) };
+  function initEventPop() {
+    var dlg = $('#event-pop');
+    var now = Date.now(), upcoming = now < EVT.ends;
+    $$('[data-evt]').forEach(function (el) { el.hidden = (el.getAttribute('data-evt') === 'before') !== upcoming; });
+    if (!dlg) return;
+    var count = $('[data-evt-count]', dlg);
+    if (count && upcoming) {
+      var day = function (t) { return Math.floor((t + 3 * 3600e3) / 864e5); }; // calendar day in Nairobi
+      var d = day(EVT.starts) - day(now);
+      count.textContent = d <= 0 ? 'It is today. See you there!' : d === 1 ? 'Tomorrow!' : d + ' days to go';
+    }
+    var lastFocus = null;
+    function open(trigger) {
+      lastFocus = trigger || document.activeElement;
+      dlg.classList.remove('is-closing');
+      if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+    }
+    function close() {
+      if (dlg.classList.contains('is-closing')) return;
+      dlg.classList.add('is-closing');
+      setTimeout(function () {
+        if (dlg.close) dlg.close(); else dlg.removeAttribute('open');
+        dlg.classList.remove('is-closing');
+      }, 250);
+    }
+    dlg.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+    dlg.addEventListener('close', function () { if (lastFocus && lastFocus.focus) lastFocus.focus(); });
+    $$('[data-evt-close]', dlg).forEach(function (b) { b.addEventListener('click', close); });
+    $$('[data-event-open]').forEach(function (b) {
+      b.addEventListener('click', function (e) { e.preventDefault(); open(b); });
+    });
+    if (!upcoming || /checkout(\.html)?$/.test(location.pathname)) return;
+    try { if (sessionStorage.getItem(EVT.key)) return; sessionStorage.setItem(EVT.key, '1'); } catch (e) { /* private mode: still show */ }
+    var pre = new Image();
+    pre.onload = function () { setTimeout(function () { if (!$('dialog[open]')) open(); }, 1200); };
+    pre.src = $('img', dlg).src;
+  }
+
   /* ----------------------------------------------------------- Bootstrap */
   function init() {
     initNav();
@@ -957,6 +1000,7 @@
     initVideos();
     initCopy();
     initNewsletterReader();
+    initEventPop();
     initForms();
     var y = $('#year'); if (y) y.textContent = new Date().getFullYear();
   }
