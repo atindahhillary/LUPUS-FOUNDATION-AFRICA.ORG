@@ -939,7 +939,7 @@
   }
 
   /* ------------------------------------------------- Event popup (flyer) */
-  // Shows once per browser visit until the end of the event day (Nairobi time),
+  // Shows on every page load until the end of the event day (Nairobi time),
   // then stops by itself. [data-evt="before|after"] text swaps on the same date.
   var EVT = { key: 'lfa-evt-eoy-2026', starts: Date.UTC(2026, 10, 28, 8, 0), ends: Date.UTC(2026, 10, 28, 21, 0) };
   function initEventPop() {
@@ -975,7 +975,6 @@
       b.addEventListener('click', function (e) { e.preventDefault(); open(b); });
     });
     if (!upcoming || /checkout(\.html)?$/.test(location.pathname)) return;
-    try { if (sessionStorage.getItem(EVT.key)) return; sessionStorage.setItem(EVT.key, '1'); } catch (e) { /* private mode: still show */ }
     var pre = new Image();
     pre.onload = function () { setTimeout(function () { if (!$('dialog[open]')) open(); }, 1200); };
     pre.src = $('img', dlg).src;
