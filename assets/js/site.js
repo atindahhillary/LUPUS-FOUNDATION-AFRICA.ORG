@@ -965,8 +965,10 @@
       setTimeout(function () {
         if (dlg.close) dlg.close(); else dlg.removeAttribute('open');
         dlg.classList.remove('is-closing');
+        if (onClosed) onClosed();
       }, 250);
     }
+    var onClosed = null;
     dlg.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
     dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
     dlg.addEventListener('close', function () { if (lastFocus && lastFocus.focus) lastFocus.focus(); });
@@ -978,6 +980,20 @@
     var pre = new Image();
     pre.onload = function () { setTimeout(function () { if (!$('dialog[open]')) open(); }, 1200); };
     pre.src = $('img', dlg).src;
+    // Remind again 2 minutes after each close, until the event day ends.
+    // Waits (checks every 10s) while the tab is hidden, another dialog is open
+    // or the cart/chat panel is in use, so it never interrupts a task.
+    var REMIND_MS = 120000, timer = null;
+    function busy() {
+      return document.hidden || $('dialog[open]') ||
+        $('.cart-drawer[aria-hidden="false"]') || $('#chat-launch[aria-expanded="true"]');
+    }
+    function remind() {
+      if (Date.now() >= EVT.ends) return;
+      if (busy()) { timer = setTimeout(remind, 10000); return; }
+      open();
+    }
+    onClosed = function () { clearTimeout(timer); timer = setTimeout(remind, REMIND_MS); };
   }
 
   /* ----------------------------------------------------------- Bootstrap */
